@@ -43,12 +43,16 @@ func (h *restHandler) RegisterAPI(engine *gin.Engine) {
 }
 
 // ApiGetSimpleUser 查询简单的用户信息
-func (h *restHandler) ApiGetSimpleUser(ctx *gin.Context) {
+func (h *restHandler) ApiGetSimpleUser(c *gin.Context) {
 	simpleUserReq := &dto.SimpleUserInfoReq{}
-	ctx.BindJSON(simpleUserReq) // 处理请求参数
-	dtoSimpleUserInfo := h.userSrv.GetSimpleUserInfo(simpleUserReq)
+	c.BindJSON(simpleUserReq) // 处理请求参数
+	dtoSimpleUserInfo, err := h.userSrv.GetSimpleUserInfo(simpleUserReq)
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
 
-	ctx.JSON(http.StatusOK, response.OK.WithData(dtoSimpleUserInfo))
+	c.JSON(http.StatusOK, response.OK.WithData(dtoSimpleUserInfo))
 
 	return
 }

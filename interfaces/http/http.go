@@ -16,7 +16,8 @@ func (app *NewHttpApp) Start() {
 	gin.SetMode(global.Gconfig.Server.Mode)
 	engine := gin.New()
 
-	engine.Use(middleware.Cors()) // 跨域
+	engine.Use(middleware.Cors())       // 跨域
+	engine.Use(middleware.ErrorHandler) // 错误
 
 	// 注册API
 	app.URESTHandler.RegisterAPI(engine)
