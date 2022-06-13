@@ -3,20 +3,20 @@ package service
 import (
 	assembler "github.com/jett/gin-ddd/application/assembler/user"
 	dto "github.com/jett/gin-ddd/application/dto/user"
-	"github.com/jett/gin-ddd/domain/service"
+	"github.com/jett/gin-ddd/domain/service/user"
 )
 
 type UserService struct {
 	assUserRSP    *assembler.UserRSP
 	assUserREQ    *assembler.UserREQ
-	domainService service.UserService
+	domainService user.UserService
 }
 
 func NewUserService() *UserService {
 	return &UserService{
 		assUserRSP:    assembler.NewUserRSP(),
 		assUserREQ:    assembler.NewUserREQ(),
-		domainService: *service.NewUserService(),
+		domainService: *user.NewUserService(),
 	}
 }
 

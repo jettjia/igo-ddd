@@ -1,4 +1,4 @@
-package service
+package user
 
 import entity "github.com/jett/gin-ddd/domain/entity/user"
 
