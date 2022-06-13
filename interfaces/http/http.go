@@ -2,6 +2,7 @@ package http
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/jett/gin-ddd/global"
 	"github.com/jett/gin-ddd/interfaces/http/handler/user"
 	"github.com/jett/gin-ddd/interfaces/http/middleware"
 )
@@ -19,7 +20,7 @@ func (app *NewHttpApp) Start() {
 	// 注册API
 	app.URESTHandler.RegisterAPI(engine)
 
-	if err := engine.Run(":8018"); err != nil {
+	if err := engine.Run(global.Gconfig.Server.Address); err != nil {
 		panic(err)
 	}
 }
