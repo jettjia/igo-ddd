@@ -1,7 +1,6 @@
 package user
 
 import (
-	"github.com/jett/gin-ddd/infrastructure/pkg/response"
 	"net/http"
 	"sync"
 
@@ -9,6 +8,7 @@ import (
 
 	dto "github.com/jett/gin-ddd/application/dto/user"
 	service "github.com/jett/gin-ddd/application/service/user"
+	"github.com/jett/gin-ddd/infrastructure/pkg/response"
 )
 
 // RESTHandler 公共RESTful api Handler接口
