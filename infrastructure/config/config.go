@@ -11,6 +11,7 @@ import (
 type ServerConf struct {
 	Address    string `yaml:"address"`
 	ServerName string `yaml:"serverName"`
+	Mode       string `yaml:"mode"`
 }
 
 type MysqlConf struct {

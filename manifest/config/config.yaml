@@ -2,6 +2,7 @@
 server:
   address: ":8018"
   serverName: "gin-ddd"
+  mode: "release"
 
 # Database.
 mysql:

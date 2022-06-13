@@ -1,15 +1,23 @@
-package service
+package user
 
 import (
 	"fmt"
+
 	repository "github.com/jett/gin-ddd/domain/repository/user"
+	dao "github.com/jett/gin-ddd/infrastructure/dao/user"
 )
 
-type UserLoginService struct {
+type UserService struct {
 	userRepo repository.IUserRepository
 }
 
-func (this *UserLoginService) Login(userName string, userPwd string) (string, error) {
+func NewUserService() *UserService {
+	return &UserService{
+		userRepo: dao.NewUserRepo(),
+	}
+}
+
+func (this *UserService) Login(userName string, userPwd string) (string, error) {
 	user, err := this.userRepo.GetUserByName(userName)
 	if err != nil {
 		return "", err

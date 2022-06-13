@@ -9,6 +9,10 @@ import (
 type UserRSP struct {
 }
 
+func NewUserRSP() *UserRSP {
+	return &UserRSP{}
+}
+
 // E2D_SimpleUserInfo 把用户实体映射到简单的实体 dto中，返回给前端
 func (this *UserRSP) E2D_SimpleUserInfo(user *entity.User) *userDto.SimpleUserInfo {
 	simpleUser := &userDto.SimpleUserInfo{}

@@ -1,11 +1,17 @@
 package main
 
 import (
+	"github.com/jett/gin-ddd/interfaces/http"
+
 	_ "github.com/jett/gin-ddd/boot"
-	"github.com/jett/gin-ddd/global"
-	"github.com/jett/gin-ddd/interfaces/http/router"
+	"github.com/jett/gin-ddd/interfaces/http/handler/user"
 )
 
 func main() {
-	router.Routers().Run(global.Gconfig.Server.Address) // 启动web
+	server := &http.NewHttpApp{
+		URESTHandler: user.NewRESTHandler(),
+	}
+	server.Start()
+
+	select {}
 }

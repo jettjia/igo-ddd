@@ -58,15 +58,25 @@ manifest/config/config.yaml
 # HTTP Server.
 server:
   address: ":8018"
-  serviceName: "gin-ddd"
+  serverName: "gin-ddd"
+  mode: "release"
 
 # Database.
 mysql:
   username: "root"
-  password: "123456"
-  db_host: "10.4.7.71"
-  db_port: "3307"
-  db_name: "test"
+  password: "root"
+  dbHost: "10.4.7.71"
+  dbPort: 3307
+  dbName: "test"
+
+# Log.
+log:
+  logFileDir: "./tmp"
+  appName: "gin-ddd"
+  maxSize: 512
+  maxBackups: 64
+  maxAge: 7
+
 ```
 
 infrastructure/config/config.go 注意文件路径修改
