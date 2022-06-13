@@ -16,13 +16,21 @@ func (app *NewHttpApp) Start() {
 	gin.SetMode(global.Gconfig.Server.Mode)
 	engine := gin.New()
 
-	engine.Use(middleware.Cors())       // 跨域
-	engine.Use(middleware.ErrorHandler) // 错误
+	// 中间件
+	engine.Use(middleware.Cors())
+	engine.Use(middleware.ErrorHandler)
 
-	// 注册API
+	// 注册用户API
 	app.URESTHandler.RegisterAPI(engine)
 
 	if err := engine.Run(global.Gconfig.Server.Address); err != nil {
 		panic(err)
 	}
+}
+
+func init() {
+	server := NewHttpApp{
+		URESTHandler: user.NewRESTHandler(), // 注册用户api
+	}
+	server.Start()
 }
