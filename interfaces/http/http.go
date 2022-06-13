@@ -2,6 +2,7 @@ package http
 
 import (
 	"github.com/gin-gonic/gin"
+
 	"github.com/jett/gin-ddd/global"
 	"github.com/jett/gin-ddd/interfaces/http/handler/user"
 	"github.com/jett/gin-ddd/interfaces/http/middleware"
