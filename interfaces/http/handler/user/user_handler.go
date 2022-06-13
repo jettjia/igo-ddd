@@ -1,13 +1,14 @@
 package user
 
 import (
+	"github.com/jett/gin-ddd/infrastructure/pkg/response"
+	"net/http"
 	"sync"
 
 	"github.com/gin-gonic/gin"
 
 	dto "github.com/jett/gin-ddd/application/dto/user"
 	service "github.com/jett/gin-ddd/application/service/user"
-	"github.com/jett/gin-ddd/infrastructure/pkg/response"
 )
 
 // RESTHandler 公共RESTful api Handler接口
@@ -47,11 +48,7 @@ func (h *restHandler) ApiGetSimpleUser(ctx *gin.Context) {
 	ctx.BindJSON(simpleUserReq) // 处理请求参数
 	dtoSimpleUserInfo := h.userSrv.GetSimpleUserInfo(simpleUserReq)
 
-	response.ResponseData(ctx, dtoSimpleUserInfo)
+	ctx.JSON(http.StatusOK, response.OK.WithData(dtoSimpleUserInfo))
 
 	return
-}
-
-// ApiSaveUser 保存用户
-func ApiSaveUser(ctx *gin.Context) {
 }
