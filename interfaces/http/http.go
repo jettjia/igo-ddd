@@ -12,7 +12,7 @@ type NewHttpApp struct {
 }
 
 func (app *NewHttpApp) Start() {
-	//gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(global.Gconfig.Server.Mode)
 	engine := gin.New()
 
 	engine.Use(middleware.Cors()) // 跨域
