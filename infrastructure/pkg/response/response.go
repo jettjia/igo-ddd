@@ -1,16 +1,10 @@
-package handler
+package response
 
 import (
 	"github.com/gin-gonic/gin"
+
 	"github.com/jett/gin-ddd/infrastructure/pkg/hcode"
 )
-
-type Handles struct {
-}
-
-func NewHandles() *Handles {
-	return &Handles{}
-}
 
 func ResponseErr(g *gin.Context, err error) {
 	code := hcode.Cause(err)

@@ -9,7 +9,7 @@ import (
 	"github.com/jett/gin-ddd/infrastructure/consts"
 )
 
-var _ userRepository.UserLogRepository = (*UserLog)(nil)
+var _ userRepository.IUserLogRepository = (*UserLog)(nil)
 
 type UserLog struct {
 }
