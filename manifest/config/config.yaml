@@ -1,0 +1,20 @@
+# HTTP Server.
+server:
+  address: ":8018"
+  serverName: "gin-ddd"
+
+# Database.
+mysql:
+  username: "root"
+  password: "root"
+  dbHost: "10.4.7.71"
+  dbPort: 3307
+  dbName: "test"
+
+# Log.
+log:
+  logFileDir: "./tmp"
+  appName: "gin-ddd"
+  maxSize: 512
+  maxBackups: 64
+  maxAge: 7
