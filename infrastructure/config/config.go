@@ -49,7 +49,7 @@ var (
 // InitConfig 读取配置
 func initConfig() *Config {
 	configOnce.Do(func() {
-		configFilePath := "E:\\web\\go_work\\wingopath\\github-code\\gin-ddd\\manifest\\config\\config.yaml"
+		configFilePath := "/var/config/config.yaml"
 		file, err := ioutil.ReadFile(configFilePath)
 		if err != nil {
 			panic(fmt.Sprintf("load %v failed: %v", configFilePath, err))

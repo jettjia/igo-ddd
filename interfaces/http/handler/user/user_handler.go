@@ -1,6 +1,7 @@
 package user
 
 import (
+	"net/http"
 	"sync"
 
 	"github.com/gin-gonic/gin"
@@ -42,16 +43,16 @@ func (h *restHandler) RegisterAPI(engine *gin.Engine) {
 }
 
 // ApiGetSimpleUser 查询简单的用户信息
-func (h *restHandler) ApiGetSimpleUser(ctx *gin.Context) {
+func (h *restHandler) ApiGetSimpleUser(c *gin.Context) {
 	simpleUserReq := &dto.SimpleUserInfoReq{}
-	ctx.BindJSON(simpleUserReq) // 处理请求参数
-	dtoSimpleUserInfo := h.userSrv.GetSimpleUserInfo(simpleUserReq)
+	c.BindJSON(simpleUserReq) // 处理请求参数
+	dtoSimpleUserInfo, err := h.userSrv.GetSimpleUserInfo(simpleUserReq)
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
 
-	response.ResponseData(ctx, dtoSimpleUserInfo)
+	c.JSON(http.StatusOK, response.OK.WithData(dtoSimpleUserInfo))
 
 	return
-}
-
-// ApiSaveUser 保存用户
-func ApiSaveUser(ctx *gin.Context) {
 }
