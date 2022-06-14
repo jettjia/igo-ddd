@@ -8,7 +8,7 @@ import (
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
-	user "github.com/jett/gin-ddd/domain/entity/user"
+	entity "github.com/jett/gin-ddd/domain/entity/user"
 )
 
 // MockIUserRepository is a mock of IUserRepository interface.
@@ -35,10 +35,10 @@ func (m *MockIUserRepository) EXPECT() *MockIUserRepositoryMockRecorder {
 }
 
 // GetUser mocks base method.
-func (m *MockIUserRepository) GetUser(arg0 uint64) (*user.User, error) {
+func (m *MockIUserRepository) GetUser(arg0 uint64) (*entity.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetUser", arg0)
-	ret0, _ := ret[0].(*user.User)
+	ret0, _ := ret[0].(*entity.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -50,10 +50,10 @@ func (mr *MockIUserRepositoryMockRecorder) GetUser(arg0 interface{}) *gomock.Cal
 }
 
 // GetUserByName mocks base method.
-func (m *MockIUserRepository) GetUserByName(nickname string) (*user.User, error) {
+func (m *MockIUserRepository) GetUserByName(nickname string) (*entity.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetUserByName", nickname)
-	ret0, _ := ret[0].(*user.User)
+	ret0, _ := ret[0].(*entity.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -65,10 +65,10 @@ func (mr *MockIUserRepositoryMockRecorder) GetUserByName(nickname interface{}) *
 }
 
 // SaveUser mocks base method.
-func (m *MockIUserRepository) SaveUser(arg0 *user.User) (*user.User, error) {
+func (m *MockIUserRepository) SaveUser(arg0 *entity.User) (*entity.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "SaveUser", arg0)
-	ret0, _ := ret[0].(*user.User)
+	ret0, _ := ret[0].(*entity.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
