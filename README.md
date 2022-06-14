@@ -2,7 +2,6 @@
 
 ## 层级说明
 ```base
-├── cmd 存放 main.go 等
 ├── interfaces 接入层 【http/grpc适配, 这一层调用application层; 比如interfaces层定义了输入层的相关方法，以使用gin提供http接口为例，这里的handler等为使用gin提供的一些http接口，这一层调用application层】
 │   ├── grpc
 │   └── http
