@@ -6,6 +6,8 @@ import (
 	"sync"
 
 	"gopkg.in/yaml.v2"
+
+	"github.com/jett/gin-ddd/infrastructure/pkg/util"
 )
 
 type ServerConf struct {
@@ -49,7 +51,7 @@ var (
 // InitConfig 读取配置
 func initConfig() *Config {
 	configOnce.Do(func() {
-		configFilePath := "/var/config/config.yaml"
+		configFilePath := util.Getwd() + "/manifest/config/config.yaml"
 		file, err := ioutil.ReadFile(configFilePath)
 		if err != nil {
 			panic(fmt.Sprintf("load %v failed: %v", configFilePath, err))

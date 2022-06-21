@@ -7,9 +7,9 @@ server:
 # Database.
 mysql:
   username: "root"
-  password: "root"
+  password: "123456"
   dbHost: "10.4.7.71"
-  dbPort: 3307
+  dbPort: 3306
   dbName: "test"
 
 # Log.

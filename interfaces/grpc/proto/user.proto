@@ -1,0 +1,13 @@
+syntax = "proto3";
+option go_package = ".;proto";
+service User {
+  rpc FindSimpleUser (FindSimpleUserRequest) returns (FindSimpleUserReply);
+}
+message FindSimpleUserRequest {
+  uint64 id = 1;
+}
+
+message FindSimpleUserReply {
+  uint64 id = 1;
+  string nickname = 2;
+}
