@@ -23,6 +23,6 @@ type (
 // 请求对象
 type (
 	SimpleUserInfoReq struct {
-		Id uint64 `json:"id" binding:"required,min=100"`
+		Id uint64 `json:"id" binding:"required,min=1"`
 	}
 )
