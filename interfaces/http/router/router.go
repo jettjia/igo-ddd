@@ -5,12 +5,12 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/jett/gin-ddd/cmd"
 	"github.com/jett/gin-ddd/interfaces/http/middleware"
-	"github.com/jett/gin-ddd/interfaces/http/registersrv"
 	"github.com/jett/gin-ddd/interfaces/http/router/user"
 )
 
-func Routers(registerSrv *registersrv.Registersrv) *gin.Engine {
+func Routers(app *cmd.App) *gin.Engine {
 	Router := gin.Default()
 
 	// 健康检查
@@ -25,7 +25,7 @@ func Routers(registerSrv *registersrv.Registersrv) *gin.Engine {
 	Router.Use(middleware.Cors())
 
 	ApiGroup := Router.Group("/api/v1")
-	user.InitUserRouter(ApiGroup, registerSrv) //注入用户模块
+	user.InitUserRouter(ApiGroup, app) //注入用户模块
 
 	return Router
 }

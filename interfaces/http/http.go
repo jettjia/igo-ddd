@@ -1,18 +1,13 @@
 package http
 
 import (
-	service "github.com/jett/gin-ddd/application/service/user"
+	"github.com/jett/gin-ddd/cmd"
 	"github.com/jett/gin-ddd/global"
-	"github.com/jett/gin-ddd/interfaces/http/registersrv"
 	"github.com/jett/gin-ddd/interfaces/http/router"
 )
 
-func init() {
-	server := registersrv.Registersrv{
-		UserSrv: service.NewUserService(),
-	}
-
+func InitHttp(app *cmd.App) {
 	go func() {
-		router.Routers(&server).Run(global.Gconfig.Server.Address) // 启动web
+		router.Routers(app).Run(global.Gconfig.Server.Address) // 启动web
 	}()
 }

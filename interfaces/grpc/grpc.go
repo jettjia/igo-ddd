@@ -12,7 +12,7 @@ import (
 	"github.com/jett/gin-ddd/interfaces/grpc/registersrv"
 )
 
-func init() {
+func InitGrpc() {
 	IP := flag.String("ip", "0.0.0.0", "ip地址")
 	Port := flag.Int("port", 0, "端口") // ip, port 这里应该是自动生成。后续注册到k8s等
 	*IP = "127.0.0.1"
