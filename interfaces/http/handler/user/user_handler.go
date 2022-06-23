@@ -1,8 +1,9 @@
 package handler
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 
 	dto "github.com/jett/gin-ddd/application/dto/user"
 	service "github.com/jett/gin-ddd/application/service/user"
@@ -18,7 +19,7 @@ func (this *UserHandler) ApiGetSimpleUser(c *gin.Context) {
 	simpleUserReq := &dto.SimpleUserInfoReq{}
 	c.BindJSON(simpleUserReq) // 处理请求参数
 
-	dtoSimpleUserInfo, err := this.UserSrv.GetSimpleUserInfo(simpleUserReq)
+	dtoSimpleUserInfo, err := this.UserSrv.GetSimpleUserInfo(c.Request.Context(), simpleUserReq)
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return

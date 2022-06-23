@@ -1,6 +1,7 @@
 package user
 
 import (
+	"context"
 	"fmt"
 
 	repository "github.com/jett/gin-ddd/domain/repository/user"
@@ -17,8 +18,8 @@ func NewUserService() *UserService {
 	}
 }
 
-func (this *UserService) Login(userName string, userPwd string) (string, error) {
-	user, err := this.userRepo.GetUserByName(userName)
+func (this *UserService) Login(ctx context.Context, userName string, userPwd string) (string, error) {
+	user, err := this.userRepo.GetUserByName(ctx, userName)
 	if err != nil {
 		return "", err
 	}

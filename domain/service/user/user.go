@@ -1,8 +1,12 @@
 package user
 
-import entity "github.com/jett/gin-ddd/domain/entity/user"
+import (
+	"context"
 
-func (this *UserService) GetUser(id uint64) (*entity.User, error) {
+	entity "github.com/jett/gin-ddd/domain/entity/user"
+)
 
-	return this.userRepo.GetUser(id)
+func (this *UserService) GetUser(ctx context.Context, id uint64) (*entity.User, error) {
+
+	return this.userRepo.GetUser(ctx, id)
 }

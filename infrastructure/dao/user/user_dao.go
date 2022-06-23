@@ -1,13 +1,14 @@
 package dao
 
 import (
+	"context"
 	"errors"
 	"fmt"
-	userRepository "github.com/jett/gin-ddd/domain/repository/user"
 
 	"github.com/jinzhu/gorm"
 
 	entity "github.com/jett/gin-ddd/domain/entity/user"
+	userRepository "github.com/jett/gin-ddd/domain/repository/user"
 	"github.com/jett/gin-ddd/global"
 	"github.com/jett/gin-ddd/infrastructure/consts"
 )
@@ -25,7 +26,7 @@ func (this *UserDao) getCacheKey(data string) string {
 	return fmt.Sprintf("%s%s", consts.UserCacheKey, data)
 }
 
-func (this *UserDao) SaveUser(user *entity.User) (*entity.User, error) {
+func (this *UserDao) SaveUser(ctx context.Context, user *entity.User) (*entity.User, error) {
 	err := global.GDB.Create(&user).Error
 	if err != nil {
 		global.GLog.Errorln(err.Error())
@@ -35,7 +36,7 @@ func (this *UserDao) SaveUser(user *entity.User) (*entity.User, error) {
 	return user, nil
 }
 
-func (this *UserDao) GetUser(id uint64) (*entity.User, error) {
+func (this *UserDao) GetUser(ctx context.Context, id uint64) (*entity.User, error) {
 	var (
 		user entity.User
 	)
@@ -51,7 +52,7 @@ func (this *UserDao) GetUser(id uint64) (*entity.User, error) {
 	return &user, nil
 }
 
-func (this *UserDao) GetUserByName(nickname string) (*entity.User, error) {
+func (this *UserDao) GetUserByName(ctx context.Context, nickname string) (*entity.User, error) {
 	var (
 		user entity.User
 	)

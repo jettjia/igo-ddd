@@ -1,9 +1,8 @@
 package assembler
 
 import (
-	entity "github.com/jett/gin-ddd/domain/entity/user"
-
 	dto "github.com/jett/gin-ddd/application/dto/user"
+	entity "github.com/jett/gin-ddd/domain/entity/user"
 )
 
 type UserREQ struct {

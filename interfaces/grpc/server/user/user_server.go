@@ -14,7 +14,7 @@ func (u *UserServer) FindSimpleUser(ctx context.Context, request *proto.FindSimp
 	simpleUserReq.Id = request.Id
 
 	//TODO implement me， 这里去调用  application/service
-	dtoSimpleUserInfo, err := u.UserSrv.GetSimpleUserInfo(simpleUserReq)
+	dtoSimpleUserInfo, err := u.UserSrv.GetSimpleUserInfo(ctx, simpleUserReq)
 	if err != nil {
 		return nil, status.Error(codes.Aborted, "user not found")
 	}

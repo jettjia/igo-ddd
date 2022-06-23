@@ -1,6 +1,8 @@
 package aggregate
 
 import (
+	"context"
+
 	entity "github.com/jett/gin-ddd/domain/entity/user"
 	repository "github.com/jett/gin-ddd/domain/repository/user"
 )
@@ -13,18 +15,9 @@ type User struct {
 	userRepoLog repository.IUserLogRepository
 }
 
-func NewUser(user *entity.User, userRepo repository.IUserRepository, userRepoLog repository.IUserLogRepository) *User {
-	return &User{User: user, userRepo: userRepo, userRepoLog: userRepoLog}
-}
-
-func NewUserById(id uint64, userRepo repository.IUserRepository, userRepoLog repository.IUserLogRepository) *User {
-	user, _ := userRepo.GetUser(id)
-	return &User{User: user, userRepo: userRepo, userRepoLog: userRepoLog}
-}
-
-// Create 创建会员
-func (this *User) Create() error {
-	entityUser, err := this.userRepo.SaveUser(this.User)
+// Create 创建会员,创建的时候会增加日志
+func (this *User) Create(ctx context.Context) error {
+	entityUser, err := this.userRepo.SaveUser(ctx, this.User)
 	if err != nil {
 		return err
 
@@ -32,7 +25,7 @@ func (this *User) Create() error {
 
 	this.UserLog.UserId = entityUser.ID
 	this.UserLog.Log = "创建用户" + entityUser.Nickname
-	_, err = this.userRepoLog.SaveLog(this.UserLog)
+	_, err = this.userRepoLog.SaveLog(ctx, this.UserLog)
 	if err != nil {
 		return err
 	}
