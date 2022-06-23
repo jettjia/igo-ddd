@@ -16,13 +16,13 @@ import (
 
 // go test -cover ./...
 func TestUser_User(t *testing.T) {
-	ctx := context.Background()
 	ctrl := gomock.NewController(t) // 初始化 controller
 	defer ctrl.Finish()
 
 	userRepo := mock.NewMockIUserRepository(ctrl) // 初始化 mock
 
-	userDao := dao.UserDao{}
+	userDao := dao.NewUserRepo()
+	var ctx context.Context
 
 	Convey("Convey Test Get Userinfo dao", t, func() {
 		var err error

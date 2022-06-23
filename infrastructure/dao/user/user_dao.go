@@ -69,6 +69,6 @@ func (u *UserDao) GetUserByName(ctx context.Context, nickname string) (*entity.U
 	if gorm.IsRecordNotFoundError(err) {
 		return nil, errors.New("food not found")
 	}
-	
+
 	return &user, nil
 }
