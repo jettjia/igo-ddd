@@ -16,10 +16,13 @@ import (
 var _ userRepository.IUserRepository = (*UserDao)(nil)
 
 type UserDao struct {
+	db *gorm.DB
 }
 
 func NewUserRepo() *UserDao {
-	return &UserDao{}
+	return &UserDao{
+		db: global.GDB,
+	}
 }
 
 func (this *UserDao) getCacheKey(data string) string {
@@ -27,7 +30,7 @@ func (this *UserDao) getCacheKey(data string) string {
 }
 
 func (this *UserDao) SaveUser(ctx context.Context, user *entity.User) (*entity.User, error) {
-	err := global.GDB.Create(&user).Error
+	err := this.db.Create(&user).Error
 	if err != nil {
 		global.GLog.Errorln(err.Error())
 		return nil, err
@@ -40,7 +43,7 @@ func (this *UserDao) GetUser(ctx context.Context, id uint64) (*entity.User, erro
 	var (
 		user entity.User
 	)
-	err := global.GDB.First(&user, id).Error
+	err := this.db.First(&user, id).Error
 	if err != nil {
 		global.GLog.Errorln(err.Error())
 		return nil, err
@@ -56,7 +59,7 @@ func (this *UserDao) GetUserByName(ctx context.Context, nickname string) (*entit
 	var (
 		user entity.User
 	)
-	err := global.GDB.Where("nickname", nickname).Error
+	err := this.db.Where("nickname", nickname).Error
 	if err != nil {
 		global.GLog.Errorln(err.Error())
 		return nil, err
