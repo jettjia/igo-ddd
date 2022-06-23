@@ -15,11 +15,11 @@ type UserHandler struct {
 }
 
 // ApiGetSimpleUser 查询简单的用户信息 GET /user/123
-func (this *UserHandler) ApiGetSimpleUser(c *gin.Context) {
+func (u *UserHandler) ApiGetSimpleUser(c *gin.Context) {
 	simpleUserReq := &dto.SimpleUserInfoReq{}
 	c.BindJSON(simpleUserReq) // 处理请求参数
 
-	dtoSimpleUserInfo, err := this.UserSrv.GetSimpleUserInfo(c.Request.Context(), simpleUserReq)
+	dtoSimpleUserInfo, err := u.UserSrv.GetSimpleUserInfo(c.Request.Context(), simpleUserReq)
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return

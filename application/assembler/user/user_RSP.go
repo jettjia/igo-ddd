@@ -14,7 +14,7 @@ func NewUserRSP() *UserRSP {
 }
 
 // E2DSimpleUserInfo 把用户实体映射到简单的实体 dto中，返回给前端
-func (this *UserRSP) E2DSimpleUserInfo(user *entity.User) *userDto.SimpleUserInfo {
+func (u *UserRSP) E2DSimpleUserInfo(user *entity.User) *userDto.SimpleUserInfo {
 	simpleUser := &userDto.SimpleUserInfo{}
 	simpleUser.Id = user.ID
 	simpleUser.Nickname = user.Nickname
@@ -22,18 +22,18 @@ func (this *UserRSP) E2DSimpleUserInfo(user *entity.User) *userDto.SimpleUserInf
 	return simpleUser
 }
 
-func (this *UserRSP) E2DUserInfo(user *aggregate.User) *userDto.UserInfo {
+func (u *UserRSP) E2DUserInfo(user *aggregate.User) *userDto.UserInfo {
 	userInfo := &userDto.UserInfo{}
 	userInfo.Id = user.User.ID
 	userInfo.Nickname = user.User.Nickname
 	userInfo.Passport = user.User.Passport
-	userInfo.Logs = this.E2DUserLogs(user.GetLogs())
+	userInfo.Logs = u.E2DUserLogs(user.GetLogs())
 
 	return userInfo
 }
 
 // E2DUserLogs todo 完成日志查询
-func (this *UserRSP) E2DUserLogs(logs []*entity.UserLog) (ret []*userDto.UserLog) {
+func (u *UserRSP) E2DUserLogs(logs []*entity.UserLog) (ret []*userDto.UserLog) {
 
 	return
 }

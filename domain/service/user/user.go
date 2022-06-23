@@ -6,7 +6,7 @@ import (
 	entity "github.com/jett/gin-ddd/domain/entity/user"
 )
 
-func (this *UserService) GetUser(ctx context.Context, id uint64) (*entity.User, error) {
+func (u *UserService) GetUser(ctx context.Context, id uint64) (*entity.User, error) {
 
-	return this.userRepo.GetUser(ctx, id)
+	return u.userRepo.GetUser(ctx, id)
 }

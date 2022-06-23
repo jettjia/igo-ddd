@@ -18,8 +18,8 @@ func NewUserService() *UserService {
 	}
 }
 
-func (this *UserService) Login(ctx context.Context, userName string, userPwd string) (string, error) {
-	user, err := this.userRepo.GetUserByName(ctx, userName)
+func (u *UserService) Login(ctx context.Context, userName string, userPwd string) (string, error) {
+	user, err := u.userRepo.GetUserByName(ctx, userName)
 	if err != nil {
 		return "", err
 	}

@@ -30,7 +30,7 @@ func TestUser_User(t *testing.T) {
 
 		Convey("Get Userinfo Success", func() {
 			err = nil
-			id = 100
+			id = 1
 			repoDataRes := &entity.User{}
 			repoDataRes.ID = id
 			userRepo.EXPECT().GetUser(ctx, id).AnyTimes().Return(repoDataRes, err)

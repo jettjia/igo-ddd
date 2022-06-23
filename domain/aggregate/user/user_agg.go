@@ -16,22 +16,22 @@ type User struct {
 }
 
 // Create 创建会员,创建的时候会增加日志
-func (this *User) Create(ctx context.Context) error {
-	entityUser, err := this.userRepo.SaveUser(ctx, this.User)
+func (u *User) Create(ctx context.Context) error {
+	entityUser, err := u.userRepo.SaveUser(ctx, u.User)
 	if err != nil {
 		return err
 
 	}
 
-	this.UserLog.UserId = entityUser.ID
-	this.UserLog.Log = "创建用户" + entityUser.Nickname
-	_, err = this.userRepoLog.SaveLog(ctx, this.UserLog)
+	u.UserLog.UserId = entityUser.ID
+	u.UserLog.Log = "创建用户" + entityUser.Nickname
+	_, err = u.userRepoLog.SaveLog(ctx, u.UserLog)
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func (this *User) GetLogs() (ret []*entity.UserLog) {
+func (u *User) GetLogs() (ret []*entity.UserLog) {
 	return
 }
