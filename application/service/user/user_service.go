@@ -24,10 +24,10 @@ func NewUserService() *UserService {
 
 // GetSimpleUserInfo 获取用户信息给到 interfaces
 func (this *UserService) GetSimpleUserInfo(ctx context.Context, req *dto.SimpleUserInfoReq) (*dto.SimpleUserInfo, error) {
-	userEntity := this.assUserREQ.D2E_SimpleUserInfo(req)
+	userEntity := this.assUserREQ.D2ESimpleUserInfo(req)
 	entUser, err := this.domainService.GetUser(ctx, userEntity.ID) // 业务复杂的话，这里应该调用 domain/aggregate聚合
 	if err != nil {
 		return nil, err
 	}
-	return this.assUserRSP.E2D_SimpleUserInfo(entUser), nil
+	return this.assUserRSP.E2DSimpleUserInfo(entUser), nil
 }

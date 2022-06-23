@@ -14,13 +14,26 @@ tidy:
 		cd -; \
 	done
 
+.PHONY: fmt
+fmt:
+	@go fmt ${PKG_LIST}
+
+init: # install golint
+	@go install golang.org/x/lint/golint@latest
+
+lint: ## Lint the files
+	@golint -set_exit_status ${PKG_LIST}
+
 .PHONY: vet
 vet: ## Vet the files
 	@go vet ${PKG_LIST}
 
 .PHONY: test
 test:
-	go test -cover ./...
+	@go test -cover ./...
+
+race: ## Run tests with data race detector
+	@go test -race ${PKG_LIST}
 
 .PHONY: build
 build:
