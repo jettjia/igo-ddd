@@ -50,21 +50,6 @@ func (mr *MockIUserRepositoryMockRecorder) GetUser(ctx, id interface{}) *gomock.
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUser", reflect.TypeOf((*MockIUserRepository)(nil).GetUser), ctx, id)
 }
 
-// GetUserByName mocks base method.
-func (m *MockIUserRepository) GetUserByName(ctx context.Context, nickname string) (*entity.User, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetUserByName", ctx, nickname)
-	ret0, _ := ret[0].(*entity.User)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// GetUserByName indicates an expected call of GetUserByName.
-func (mr *MockIUserRepositoryMockRecorder) GetUserByName(ctx, nickname interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUserByName", reflect.TypeOf((*MockIUserRepository)(nil).GetUserByName), ctx, nickname)
-}
-
 // SaveUser mocks base method.
 func (m *MockIUserRepository) SaveUser(ctx context.Context, user *entity.User) (*entity.User, error) {
 	m.ctrl.T.Helper()

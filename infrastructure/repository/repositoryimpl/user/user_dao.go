@@ -1,4 +1,4 @@
-package dao
+package repositoryimpl
 
 import (
 	"context"
@@ -8,9 +8,11 @@ import (
 	"github.com/jinzhu/gorm"
 
 	entity "github.com/jett/gin-ddd/domain/entity/user"
-	userRepository "github.com/jett/gin-ddd/domain/repository/user"
+	userRepository "github.com/jett/gin-ddd/domain/irepository/user"
 	"github.com/jett/gin-ddd/global"
 	"github.com/jett/gin-ddd/infrastructure/consts"
+	converter "github.com/jett/gin-ddd/infrastructure/repository/converter/user"
+	po "github.com/jett/gin-ddd/infrastructure/repository/po/user"
 )
 
 var _ userRepository.IUserRepository = (*UserDao)(nil)
@@ -30,20 +32,22 @@ func (u *UserDao) getCacheKey(data string) string {
 }
 
 func (u *UserDao) SaveUser(ctx context.Context, user *entity.User) (*entity.User, error) {
-	err := u.db.Create(&user).Error
+	poUser := converter.E2PUser(user)
+	err := u.db.Create(&poUser).Error
 	if err != nil {
 		global.GLog.Errorln(err.Error())
 		return nil, err
 	}
 
-	return user, nil
+	enUser := converter.P2EUser(poUser)
+	return enUser, nil
 }
 
 func (u *UserDao) GetUser(ctx context.Context, id uint64) (*entity.User, error) {
 	var (
-		user entity.User
+		poUser po.User
 	)
-	err := u.db.First(&user, id).Error
+	err := u.db.First(&poUser, id).Error
 	if err != nil {
 		global.GLog.Errorln(err.Error())
 		return nil, err
@@ -53,22 +57,6 @@ func (u *UserDao) GetUser(ctx context.Context, id uint64) (*entity.User, error) 
 		return nil, errors.New("food not found")
 	}
 
-	return &user, nil
-}
-
-func (u *UserDao) GetUserByName(ctx context.Context, nickname string) (*entity.User, error) {
-	var (
-		user entity.User
-	)
-	err := u.db.Where("nickname", nickname).Error
-	if err != nil {
-		global.GLog.Errorln(err.Error())
-		return nil, err
-	}
-
-	if gorm.IsRecordNotFoundError(err) {
-		return nil, errors.New("food not found")
-	}
-
-	return &user, nil
+	enUser := converter.P2EUser(&poUser)
+	return enUser, nil
 }

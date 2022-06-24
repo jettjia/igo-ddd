@@ -22,7 +22,7 @@ func (u *UserRSP) E2DSimpleUserInfo(user *entity.User) *userDto.SimpleUserInfo {
 	return simpleUser
 }
 
-func (u *UserRSP) E2DUserInfo(user *aggregate.User) *userDto.UserInfo {
+func (u *UserRSP) E2DUserInfo(user *aggregate.UserAgg) *userDto.UserInfo {
 	userInfo := &userDto.UserInfo{}
 	userInfo.Id = user.User.ID
 	userInfo.Nickname = user.User.Nickname

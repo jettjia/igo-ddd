@@ -4,11 +4,11 @@ import (
 	"context"
 
 	entity "github.com/jett/gin-ddd/domain/entity/user"
-	repository "github.com/jett/gin-ddd/domain/repository/user"
+	repository "github.com/jett/gin-ddd/domain/irepository/user"
 )
 
-// User 会有聚合：用户+用户日志
-type User struct {
+// UserAgg 会有聚合：用户+用户日志
+type UserAgg struct {
 	User        *entity.User
 	UserLog     *entity.UserLog
 	userRepo    repository.IUserRepository
@@ -16,7 +16,7 @@ type User struct {
 }
 
 // Create 创建会员,创建的时候会增加日志
-func (u *User) Create(ctx context.Context) error {
+func (u *UserAgg) Create(ctx context.Context) error {
 	entityUser, err := u.userRepo.SaveUser(ctx, u.User)
 	if err != nil {
 		return err
@@ -32,6 +32,10 @@ func (u *User) Create(ctx context.Context) error {
 	return nil
 }
 
-func (u *User) GetLogs() (ret []*entity.UserLog) {
+func (u *UserAgg) GetLogs() (ret []*entity.UserLog) {
 	return
+}
+
+func (u *UserAgg) GetUserInfo() {
+
 }

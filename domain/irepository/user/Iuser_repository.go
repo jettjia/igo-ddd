@@ -1,4 +1,4 @@
-package repository
+package irepository
 
 import (
 	"context"
@@ -10,5 +10,4 @@ import (
 type IUserRepository interface {
 	SaveUser(ctx context.Context, user *entity.User) (*entity.User, error)
 	GetUser(ctx context.Context, id uint64) (*entity.User, error)
-	GetUserByName(ctx context.Context, nickname string) (*entity.User, error)
 }
