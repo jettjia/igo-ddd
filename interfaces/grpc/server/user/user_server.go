@@ -8,7 +8,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (u *UserServer) FindSimpleUser(ctx context.Context, request *proto.FindSimpleUserRequest) (*proto.FindSimpleUserReply, error) {
+func (u *UserServer) Find_SimpleUser(ctx context.Context, request *proto.FindSimpleUserRequest) (*proto.FindSimpleUserReply, error) {
 	//fmt.Println("i am in......")
 	simpleUserReq := &dto.SimpleUserInfoReq{}
 	simpleUserReq.Id = request.Id

@@ -12,7 +12,7 @@
 │   └── service 负责业务流程的编排，但本身不负责任何业务逻辑
 ├── domain 领域层 【主要是定义了entity，以及repository接口；entity里头会包含一些领域逻辑】
 │   ├── aggregate 聚合 【对于需要两个repo一起操作的，可以进行聚合，比如创建用户的时候有userRepo,还有日志的userLogRepo】
-│   ├── entity 实体 和数据库字段一样
+│   ├── entity 实体
 │   ├── repository 接口
 │   ├── service 领域服务 【单一操作，比如用户登录。没有聚合的操作的时候，在此实现】
 └── infrastructure 基础设施层 【这里提供了针对domain层的repository接口的实现，还有其他一些基础的组件，提供给application层或者interfaces层使用】
