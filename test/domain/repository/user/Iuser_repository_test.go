@@ -5,13 +5,13 @@ import (
 	"testing"
 
 	"github.com/golang/mock/gomock"
+	_ "github.com/jett/gin-ddd/boot"
 	"github.com/magiconair/properties/assert"
 	. "github.com/smartystreets/goconvey/convey"
 
-	_ "github.com/jett/gin-ddd/boot"
 	entity "github.com/jett/gin-ddd/domain/entity/user"
-	"github.com/jett/gin-ddd/domain/repository/user/mock"
-	dao "github.com/jett/gin-ddd/infrastructure/dao/user"
+	"github.com/jett/gin-ddd/domain/irepository/user/mock"
+	repositoryimpl "github.com/jett/gin-ddd/infrastructure/repository/repositoryimpl/user"
 )
 
 // go test -cover ./...
@@ -21,7 +21,7 @@ func TestUser_User(t *testing.T) {
 
 	userRepo := mock.NewMockIUserRepository(ctrl) // 初始化 mock
 
-	userDao := dao.NewUserRepo()
+	userDao := repositoryimpl.NewUserRepo()
 	var ctx context.Context
 
 	Convey("Convey Test Get Userinfo dao", t, func() {
