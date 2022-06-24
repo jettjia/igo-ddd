@@ -16,8 +16,6 @@ func E2PUser(user *entity.User) *po.User {
 	poUser.Password = user.Password
 	poUser.Nickname = user.Nickname
 	poUser.CreatedAt = user.CreatedAt
-	poUser.UpdatedAt = user.UpdatedAt
-	poUser.DeletedAt = user.DeletedAt
 
 	return &poUser
 }

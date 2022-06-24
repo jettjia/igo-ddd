@@ -6,6 +6,9 @@
 │   ├── grpc
 │   └── http
 │   └── facade  引用其他微服务（接口防腐层）
+│   ├── event 事件
+│   │   └── subscribe mq消费入口
+│   ├── job 定时任务
 ├── application 应用层 【主要是调用domain层与infrastructure层来实现功能】
 │   ├── assembler   负责将内部领域模型转化为可对外的DTO
 │   └── dto Application层的所有接口返回值为DTO -- 入参/出参
@@ -14,8 +17,8 @@
 │   ├── aggregate 聚合 【对于需要两个repo一起操作的，可以进行聚合，比如创建用户的时候有userRepo,还有日志的userLogRepo】
 │   ├── entity 实体 业务逻辑。也可以参数校验，扩展一些简单方法，减轻service的压力
 │   ├── event 事件
-│   │   ├── publish
-│   │   └── subsctibe
+│   │   ├── publish 所有发送mq在此处理
+│   │   └── subscribe 所有接受到mq处理逻辑在此处理
 │   ├── irepository 接口
 │   ├── service 领域服务 【单一操作，比如查看用户信息。没有聚合的操作的时候，在此实现】
 └── infrastructure 基础设施层 【这里提供了针对domain层的repository接口的实现，还有其他一些基础的组件，提供给application层或者interfaces层使用】

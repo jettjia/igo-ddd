@@ -19,3 +19,11 @@ log:
   maxSize: 512
   maxBackups: 64
   maxAge: 7
+
+# sql.
+nsq:
+  nsq_producer_host: "10.4.7.71"
+  nsq_producer_port: 4150
+  nsq_subscribe_host: "10.4.7.71"
+  nsq_subscribe_port: 4161
+
