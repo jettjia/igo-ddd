@@ -14,5 +14,4 @@ func main() {
 	}
 	http.InitHttp(app) // 启动 http
 	grpc.InitGrpc()    // 启动 grpc
-	select {}
 }

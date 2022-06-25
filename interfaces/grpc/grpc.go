@@ -4,6 +4,9 @@ import (
 	"flag"
 	"fmt"
 	"net"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health"
@@ -38,6 +41,13 @@ func InitGrpc() {
 			panic("failed to start grpc:" + err.Error())
 		}
 	}()
+
+	{
+		//接收终止信号
+		quit := make(chan os.Signal)
+		signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+		<-quit
+	}
 
 	fmt.Println("启动服务的IP和Port是：", *IP, *Port)
 }
