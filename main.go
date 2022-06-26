@@ -16,4 +16,6 @@ func main() {
 	http.InitHttp(app)   // start http
 	grpc.InitGrpc()      // start grpc
 	event.InitEvent(app) // start event mq
+
+	select {}
 }

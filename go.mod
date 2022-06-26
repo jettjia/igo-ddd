@@ -14,6 +14,7 @@ require (
 	github.com/nsqio/go-nsq v1.1.0 // indirect
 	github.com/sirupsen/logrus v1.8.1
 	github.com/smartystreets/goconvey v1.7.2
+	github.com/tidwall/gjson v1.14.1 // indirect
 	google.golang.org/grpc v1.47.0
 	google.golang.org/protobuf v1.28.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
