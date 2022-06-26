@@ -28,8 +28,12 @@ func (p *publish) PublishMsg(topic string, msg interface{}) (err error) {
 	}
 
 	// 发送nsq
-	err = global.GNsqProducer.Publish(topic, reqBodyByte)
-
+	client := NewNsqClient()
+	cp, err := client.NsqProducer()
+	if err != nil {
+		global.GLog.Errorf("ERROR: NsqProducer:%v\n", err)
+	}
+	err = cp.Publish(topic, reqBodyByte)
 	if err != nil {
 		global.GLog.Errorf("ERROR: nsqProducer Publish:%v\n", err)
 		return

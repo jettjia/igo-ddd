@@ -6,27 +6,42 @@ import (
 	"github.com/jett/gin-ddd/global"
 )
 
-// NewNsqProducer return *nsq.Producer
-func NewNsqProducer() *nsq.Producer {
-	addr := getNsqProducerLink()
-	nsq, err := nsq.NewProducer(addr, nsq.NewConfig())
-	if err != nil {
-		panic(err)
-	}
-
-	return nsq
+type NsqClient interface {
+	NsqProducer() (*nsq.Producer, error)
+	NsqConsumer(topic string, ch string) (*nsq.Consumer, error)
+	GetNsqProducerLink() string
+	GetNsqConsumerLink() string
 }
 
-// GetNsqProducerLink return nsq link
-func getNsqProducerLink() string {
+var _ NsqClient = (*nsqClient)(nil)
+
+type nsqClient struct {
+}
+
+func NewNsqClient() *nsqClient {
+	return &nsqClient{}
+}
+
+func (n *nsqClient) NsqProducer() (*nsq.Producer, error) {
+	addr := n.GetNsqProducerLink()
+	nsq, err := nsq.NewProducer(addr, nsq.NewConfig())
+	if err != nil {
+		return nil, err
+	}
+
+	return nsq, nil
+}
+
+func (n nsqClient) NsqConsumer(topic string, ch string) (n2 *nsq.Consumer, err error) {
+	//conf := nsq.NewConfig()
+	//conf.LookupdPollInterval = 15 * time.Second
+	return nsq.NewConsumer(topic, ch, nsq.NewConfig())
+}
+
+func (n nsqClient) GetNsqProducerLink() string {
 	return global.Gconfig.Nsq.NsqProducerHost + ":" + global.Gconfig.Nsq.NsqProducerPort
 }
 
-func NewNsqConsumer(topic string, ch string) (*nsq.Consumer, error) {
-	config := nsq.NewConfig()
-	return nsq.NewConsumer(topic, ch, config)
-}
-
-func NewNsqConn(addr string, config *nsq.Config, delegate nsq.ConnDelegate) *nsq.Conn {
-	return nsq.NewConn(addr, config, delegate)
+func (n nsqClient) GetNsqConsumerLink() string {
+	return global.Gconfig.Nsq.NsqSubscribeHost + ":" + global.Gconfig.Nsq.NsqSubscribePort
 }
