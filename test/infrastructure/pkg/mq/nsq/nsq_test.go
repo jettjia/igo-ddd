@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	_ "github.com/jett/gin-ddd/boot"
 	"github.com/jett/gin-ddd/infrastructure/pkg/mq/nsq"
+	_ "github.com/jett/gin-ddd/test"
 )
 
 func TestNsq_NewNsqProducer(t *testing.T) {

@@ -12,6 +12,7 @@ import (
 	entity "github.com/jett/gin-ddd/domain/entity/user"
 	"github.com/jett/gin-ddd/domain/irepository/user/mock"
 	repositoryimpl "github.com/jett/gin-ddd/infrastructure/repository/repositoryimpl/user"
+	_ "github.com/jett/gin-ddd/test"
 )
 
 // go test -cover ./...
