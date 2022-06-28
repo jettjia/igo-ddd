@@ -3,8 +3,8 @@ package mysql
 import (
 	"testing"
 
-	_ "github.com/jett/gin-ddd/boot"
 	"github.com/jett/gin-ddd/global"
+	_ "github.com/jett/gin-ddd/test"
 )
 
 func TestInitDB(t *testing.T) {
