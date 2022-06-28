@@ -3,6 +3,9 @@ package config
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
+	"path/filepath"
+	"strings"
 	"sync"
 
 	"gopkg.in/yaml.v2"
@@ -61,13 +64,16 @@ var (
 // InitConfig 读取配置
 func initConfig() *Config {
 	configOnce.Do(func() {
-		configFilePath := "/var/manifest/config/config.yaml"
-		file, err := ioutil.ReadFile(configFilePath)
+		wd, _ := os.Getwd()
+		for !strings.HasSuffix(wd, "gin-ddd") {
+			wd = filepath.Dir(wd)
+		}
+		fileBytes, err := ioutil.ReadFile(fmt.Sprintf("%s/manifest/config/config.yaml", wd))
 		if err != nil {
-			panic(fmt.Sprintf("load %v failed: %v", configFilePath, err))
+			panic(fmt.Sprintf("load config.yaml failed: %v", err))
 		}
 
-		err = yaml.Unmarshal(file, &config)
+		err = yaml.Unmarshal(fileBytes, &config)
 		if err != nil {
 			panic(fmt.Sprintf("unmarshal yaml file failed: %v", err))
 		}

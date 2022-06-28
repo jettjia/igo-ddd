@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	_ "github.com/jett/gin-ddd/boot"
 	"github.com/jett/gin-ddd/global"
+	_ "github.com/jett/gin-ddd/test"
 )
 
 func TestNewConfig(t *testing.T) {
