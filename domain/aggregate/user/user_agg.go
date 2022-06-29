@@ -37,20 +37,3 @@ func (u *userAgg) AddUser(ctx context.Context) error {
 	}
 	return nil
 }
-
-// Create 创建会员,创建的时候会增加日志
-func (u *userAgg) Create(ctx context.Context) error {
-	entityUser, err := u.userRepo.SaveUser(ctx, u.user)
-	if err != nil {
-		return err
-
-	}
-
-	u.userLog.UserId = entityUser.ID
-	u.userLog.Log = "创建用户:" + entityUser.Nickname
-	_, err = u.userRepoLog.SaveLog(ctx, u.userLog)
-	if err != nil {
-		return err
-	}
-	return nil
-}
