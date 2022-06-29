@@ -5,9 +5,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/jettjia/gin-ddd/cmd"
-	"github.com/jettjia/gin-ddd/interfaces/http/middleware"
-	"github.com/jettjia/gin-ddd/interfaces/http/router/user"
+	"github.com/jettjia/go-ddd/cmd"
+	"github.com/jettjia/go-ddd/interfaces/http/middleware"
+	"github.com/jettjia/go-ddd/interfaces/http/router/user"
 )
 
 func Routers(app *cmd.App) *gin.Engine {

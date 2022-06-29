@@ -3,7 +3,7 @@ package nsq
 import (
 	"testing"
 
-	_ "github.com/jettjia/gin-ddd/boot"
+	_ "github.com/jettjia/go-ddd/boot"
 )
 
 func TestNsq_Publish(t *testing.T) {

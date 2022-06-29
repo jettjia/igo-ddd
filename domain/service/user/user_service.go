@@ -2,9 +2,9 @@ package user
 
 import (
 	"context"
-	entity "github.com/jettjia/gin-ddd/domain/entity/user"
-	repository "github.com/jettjia/gin-ddd/domain/irepository/user"
-	dao "github.com/jettjia/gin-ddd/infrastructure/repository/repositoryimpl/user"
+	entity "github.com/jettjia/go-ddd/domain/entity/user"
+	repository "github.com/jettjia/go-ddd/domain/irepository/user"
+	dao "github.com/jettjia/go-ddd/infrastructure/repository/repositoryimpl/user"
 )
 
 // UserService user service interface

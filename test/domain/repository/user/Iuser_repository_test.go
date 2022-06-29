@@ -5,14 +5,14 @@ import (
 	"testing"
 
 	"github.com/golang/mock/gomock"
-	_ "github.com/jettjia/gin-ddd/boot"
+	_ "github.com/jettjia/go-ddd/boot"
 	"github.com/magiconair/properties/assert"
 	. "github.com/smartystreets/goconvey/convey"
 
-	entity "github.com/jettjia/gin-ddd/domain/entity/user"
-	"github.com/jettjia/gin-ddd/domain/irepository/user/mock"
-	repositoryimpl "github.com/jettjia/gin-ddd/infrastructure/repository/repositoryimpl/user"
-	_ "github.com/jettjia/gin-ddd/test"
+	entity "github.com/jettjia/go-ddd/domain/entity/user"
+	"github.com/jettjia/go-ddd/domain/irepository/user/mock"
+	repositoryimpl "github.com/jettjia/go-ddd/infrastructure/repository/repositoryimpl/user"
+	_ "github.com/jettjia/go-ddd/test"
 )
 
 // go test -cover ./...

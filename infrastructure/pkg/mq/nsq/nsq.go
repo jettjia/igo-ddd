@@ -3,7 +3,7 @@ package nsq
 import (
 	"github.com/nsqio/go-nsq"
 
-	"github.com/jettjia/gin-ddd/global"
+	"github.com/jettjia/go-ddd/global"
 )
 
 type NsqClient interface {

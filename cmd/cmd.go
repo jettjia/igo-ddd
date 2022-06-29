@@ -1,6 +1,6 @@
 package cmd
 
-import service "github.com/jettjia/gin-ddd/application/service/user"
+import service "github.com/jettjia/go-ddd/application/service/user"
 
 type App struct {
 	UserSrv *service.UserService

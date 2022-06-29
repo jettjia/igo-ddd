@@ -3,7 +3,7 @@ package nsq
 import (
 	"encoding/json"
 
-	"github.com/jettjia/gin-ddd/global"
+	"github.com/jettjia/go-ddd/global"
 )
 
 type Publish interface {

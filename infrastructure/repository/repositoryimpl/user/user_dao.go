@@ -7,12 +7,12 @@ import (
 
 	"github.com/jinzhu/gorm"
 
-	entity "github.com/jettjia/gin-ddd/domain/entity/user"
-	userRepository "github.com/jettjia/gin-ddd/domain/irepository/user"
-	"github.com/jettjia/gin-ddd/global"
-	"github.com/jettjia/gin-ddd/infrastructure/consts"
-	converter "github.com/jettjia/gin-ddd/infrastructure/repository/converter/user"
-	po "github.com/jettjia/gin-ddd/infrastructure/repository/po/user"
+	entity "github.com/jettjia/go-ddd/domain/entity/user"
+	userRepository "github.com/jettjia/go-ddd/domain/irepository/user"
+	"github.com/jettjia/go-ddd/global"
+	"github.com/jettjia/go-ddd/infrastructure/consts"
+	converter "github.com/jettjia/go-ddd/infrastructure/repository/converter/user"
+	po "github.com/jettjia/go-ddd/infrastructure/repository/po/user"
 )
 
 var _ userRepository.IUserRepository = (*UserDao)(nil)

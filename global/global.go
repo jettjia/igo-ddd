@@ -3,8 +3,8 @@ package global
 import (
 	"github.com/jinzhu/gorm"
 
-	"github.com/jettjia/gin-ddd/infrastructure/config"
-	"github.com/jettjia/gin-ddd/infrastructure/pkg/log"
+	"github.com/jettjia/go-ddd/infrastructure/config"
+	"github.com/jettjia/go-ddd/infrastructure/pkg/log"
 )
 
 var (

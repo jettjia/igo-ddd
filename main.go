@@ -1,11 +1,11 @@
 package main
 
 import (
-	_ "github.com/jettjia/gin-ddd/boot"
-	"github.com/jettjia/gin-ddd/cmd"
-	"github.com/jettjia/gin-ddd/interfaces/event"
-	"github.com/jettjia/gin-ddd/interfaces/grpc"
-	"github.com/jettjia/gin-ddd/interfaces/http"
+	_ "github.com/jettjia/go-ddd/boot"
+	"github.com/jettjia/go-ddd/cmd"
+	"github.com/jettjia/go-ddd/interfaces/event"
+	"github.com/jettjia/go-ddd/interfaces/grpc"
+	"github.com/jettjia/go-ddd/interfaces/http"
 )
 
 func main() {

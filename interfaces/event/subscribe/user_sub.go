@@ -6,10 +6,10 @@ import (
 
 	"github.com/tidwall/gjson"
 
-	dto "github.com/jettjia/gin-ddd/application/dto/user"
-	"github.com/jettjia/gin-ddd/cmd"
-	"github.com/jettjia/gin-ddd/global"
-	"github.com/jettjia/gin-ddd/infrastructure/pkg/mq/nsq"
+	dto "github.com/jettjia/go-ddd/application/dto/user"
+	"github.com/jettjia/go-ddd/cmd"
+	"github.com/jettjia/go-ddd/global"
+	"github.com/jettjia/go-ddd/infrastructure/pkg/mq/nsq"
 )
 
 // UserSubDemo subscribe mq demo

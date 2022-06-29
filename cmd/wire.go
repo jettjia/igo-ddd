@@ -5,7 +5,7 @@ package cmd
 
 import (
 	"github.com/google/wire"
-	service "github.com/jettjia/gin-ddd/application/service/user"
+	service "github.com/jettjia/go-ddd/application/service/user"
 )
 
 //go:generate wire

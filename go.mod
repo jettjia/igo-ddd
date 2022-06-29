@@ -1,4 +1,4 @@
-module github.com/jettjia/gin-ddd
+module github.com/jettjia/go-ddd
 
 go 1.16
 
