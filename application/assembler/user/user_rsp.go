@@ -2,7 +2,6 @@ package assembler
 
 import (
 	userDto "github.com/jett/gin-ddd/application/dto/user"
-	aggregate "github.com/jett/gin-ddd/domain/aggregate/user"
 	entity "github.com/jett/gin-ddd/domain/entity/user"
 )
 
@@ -20,20 +19,4 @@ func (u *UserRSP) E2DSimpleUserInfo(user *entity.User) *userDto.SimpleUserInfo {
 	simpleUser.Nickname = user.Nickname
 
 	return simpleUser
-}
-
-func (u *UserRSP) E2DUserInfo(user *aggregate.UserAgg) *userDto.UserInfo {
-	userInfo := &userDto.UserInfo{}
-	userInfo.Id = user.User.ID
-	userInfo.Nickname = user.User.Nickname
-	userInfo.Passport = user.User.Passport
-	userInfo.Logs = u.E2DUserLogs(user.GetLogs())
-
-	return userInfo
-}
-
-// E2DUserLogs todo 完成日志查询
-func (u *UserRSP) E2DUserLogs(logs []*entity.UserLog) (ret []*userDto.UserLog) {
-
-	return
 }
