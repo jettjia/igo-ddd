@@ -3,11 +3,11 @@ package nsq
 import (
 	"github.com/nsqio/go-nsq"
 
-	"github.com/jett/gin-ddd/global"
+	"github.com/jettjia/go-ddd/global"
 )
 
 const (
-	ChannelNsq string = "gin-ddd"
+	ChannelNsq string = "go-ddd"
 )
 
 type Consumer interface {

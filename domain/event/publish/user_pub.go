@@ -1,8 +1,8 @@
 package publish
 
 import (
-	"github.com/jett/gin-ddd/global"
-	"github.com/jett/gin-ddd/infrastructure/pkg/mq/nsq"
+	"github.com/jettjia/go-ddd/global"
+	"github.com/jettjia/go-ddd/infrastructure/pkg/mq/nsq"
 )
 
 // UserNsqPubDemo 发送消息案例，这里模拟的是发送一个获取用户信息的mq

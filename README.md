@@ -67,7 +67,7 @@ manifest/config/config.yaml
 # HTTP Server.
 server:
   address: ":8018"
-  serverName: "gin-ddd"
+  serverName: "go-ddd"
   mode: "release"
 
 # Database.
@@ -81,7 +81,7 @@ mysql:
 # Log.
 log:
   logFileDir: "./tmp"
-  appName: "gin-ddd"
+  appName: "go-ddd"
   maxSize: 512
   maxBackups: 64
   maxAge: 7

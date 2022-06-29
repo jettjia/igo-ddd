@@ -1,7 +1,7 @@
 package user
 
 import (
-	service "github.com/jett/gin-ddd/application/service/user"
+	service "github.com/jettjia/go-ddd/application/service/user"
 )
 
 type UserServer struct {

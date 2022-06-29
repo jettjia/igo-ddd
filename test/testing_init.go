@@ -1,7 +1,7 @@
 package test
 
 import (
-	_ "github.com/jett/gin-ddd/boot"
+	_ "github.com/jettjia/go-ddd/boot"
 )
 
 // init init test

@@ -7,7 +7,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 
-	"github.com/jett/gin-ddd/global"
+	"github.com/jettjia/go-ddd/global"
 )
 
 func NewDB() *gorm.DB {

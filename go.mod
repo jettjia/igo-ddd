@@ -1,4 +1,4 @@
-module github.com/jett/gin-ddd
+module github.com/jettjia/go-ddd
 
 go 1.16
 
@@ -11,10 +11,10 @@ require (
 	github.com/jinzhu/gorm v1.9.16
 	github.com/jinzhu/now v1.1.2 // indirect
 	github.com/magiconair/properties v1.8.6
-	github.com/nsqio/go-nsq v1.1.0 // indirect
+	github.com/nsqio/go-nsq v1.1.0
 	github.com/sirupsen/logrus v1.8.1
 	github.com/smartystreets/goconvey v1.7.2
-	github.com/tidwall/gjson v1.14.1 // indirect
+	github.com/tidwall/gjson v1.14.1
 	google.golang.org/grpc v1.47.0
 	google.golang.org/protobuf v1.28.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0

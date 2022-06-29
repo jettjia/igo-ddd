@@ -3,8 +3,8 @@ package aggregate
 import (
 	"context"
 
-	entity "github.com/jett/gin-ddd/domain/entity/user"
-	repository "github.com/jett/gin-ddd/domain/irepository/user"
+	entity "github.com/jettjia/go-ddd/domain/entity/user"
+	repository "github.com/jettjia/go-ddd/domain/irepository/user"
 )
 
 type UserAgg interface {

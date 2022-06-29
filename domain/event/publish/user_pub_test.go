@@ -3,7 +3,7 @@ package publish
 import (
 	"testing"
 
-	_ "github.com/jett/gin-ddd/boot"
+	_ "github.com/jettjia/go-ddd/boot"
 )
 
 // UserNsqPubDemo 测试发送消息案例

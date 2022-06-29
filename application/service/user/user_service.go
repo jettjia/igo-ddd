@@ -3,9 +3,9 @@ package service
 import (
 	"context"
 
-	assembler "github.com/jett/gin-ddd/application/assembler/user"
-	dto "github.com/jett/gin-ddd/application/dto/user"
-	"github.com/jett/gin-ddd/domain/service/user"
+	assembler "github.com/jettjia/go-ddd/application/assembler/user"
+	dto "github.com/jettjia/go-ddd/application/dto/user"
+	"github.com/jettjia/go-ddd/domain/service/user"
 )
 
 type UserService struct {

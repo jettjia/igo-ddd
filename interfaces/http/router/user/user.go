@@ -3,8 +3,8 @@ package user
 import (
 	"github.com/gin-gonic/gin"
 
-	"github.com/jett/gin-ddd/cmd"
-	handler "github.com/jett/gin-ddd/interfaces/http/handler/user"
+	"github.com/jettjia/go-ddd/cmd"
+	handler "github.com/jettjia/go-ddd/interfaces/http/handler/user"
 )
 
 func InitUserRouter(Router *gin.RouterGroup, app *cmd.App) {

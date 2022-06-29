@@ -65,7 +65,7 @@ var (
 func initConfig() *Config {
 	configOnce.Do(func() {
 		wd, _ := os.Getwd()
-		for !strings.HasSuffix(wd, "gin-ddd") {
+		for !strings.HasSuffix(wd, "go-ddd") {
 			wd = filepath.Dir(wd)
 		}
 		fileBytes, err := ioutil.ReadFile(fmt.Sprintf("%s/manifest/config/config.yaml", wd))

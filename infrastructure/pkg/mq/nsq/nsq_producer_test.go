@@ -3,12 +3,12 @@ package nsq
 import (
 	"testing"
 
-	_ "github.com/jett/gin-ddd/boot"
+	_ "github.com/jettjia/go-ddd/boot"
 )
 
 func TestNsq_Publish(t *testing.T) {
 	msg := make(map[string]string)
-	msg["name"] = "jettjia"
+	msg["name"] = "jettjiajia"
 
 	client := NewPublishClient()
 	err := client.PublishMsg("test_topic", msg)

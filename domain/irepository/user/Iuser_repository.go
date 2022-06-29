@@ -3,7 +3,7 @@ package irepository
 import (
 	"context"
 
-	entity "github.com/jett/gin-ddd/domain/entity/user"
+	entity "github.com/jettjia/go-ddd/domain/entity/user"
 )
 
 //go:generate mockgen --source ./Iuser_repository.go --destination ./mock/mock_user.go --package mock

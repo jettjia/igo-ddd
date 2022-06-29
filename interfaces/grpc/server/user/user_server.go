@@ -2,8 +2,8 @@ package user
 
 import (
 	"context"
-	dto "github.com/jett/gin-ddd/application/dto/user"
-	"github.com/jett/gin-ddd/interfaces/grpc/proto"
+	dto "github.com/jettjia/go-ddd/application/dto/user"
+	"github.com/jettjia/go-ddd/interfaces/grpc/proto"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
