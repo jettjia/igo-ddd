@@ -1,10 +1,10 @@
 package boot
 
 import (
-	"github.com/jett/gin-ddd/global"
-	"github.com/jett/gin-ddd/infrastructure/config"
-	"github.com/jett/gin-ddd/infrastructure/pkg/database/mysql"
-	"github.com/jett/gin-ddd/infrastructure/pkg/log"
+	"github.com/jettjia/gin-ddd/global"
+	"github.com/jettjia/gin-ddd/infrastructure/config"
+	"github.com/jettjia/gin-ddd/infrastructure/pkg/database/mysql"
+	"github.com/jettjia/gin-ddd/infrastructure/pkg/log"
 )
 
 // 初始化

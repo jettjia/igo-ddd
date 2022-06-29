@@ -1,9 +1,9 @@
 package http
 
 import (
-	"github.com/jett/gin-ddd/cmd"
-	"github.com/jett/gin-ddd/global"
-	"github.com/jett/gin-ddd/interfaces/http/router"
+	"github.com/jettjia/gin-ddd/cmd"
+	"github.com/jettjia/gin-ddd/global"
+	"github.com/jettjia/gin-ddd/interfaces/http/router"
 )
 
 func InitHttp(app *cmd.App) {

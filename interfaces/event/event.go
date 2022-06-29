@@ -1,8 +1,8 @@
 package event
 
 import (
-	"github.com/jett/gin-ddd/cmd"
-	nsq "github.com/jett/gin-ddd/interfaces/event/subscribe"
+	"github.com/jettjia/gin-ddd/cmd"
+	nsq "github.com/jettjia/gin-ddd/interfaces/event/subscribe"
 )
 
 // InitEvent 消息事件

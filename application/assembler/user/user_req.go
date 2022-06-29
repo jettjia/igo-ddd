@@ -1,8 +1,8 @@
 package assembler
 
 import (
-	dto "github.com/jett/gin-ddd/application/dto/user"
-	entity "github.com/jett/gin-ddd/domain/entity/user"
+	dto "github.com/jettjia/gin-ddd/application/dto/user"
+	entity "github.com/jettjia/gin-ddd/domain/entity/user"
 )
 
 // UserREQ 请求参数

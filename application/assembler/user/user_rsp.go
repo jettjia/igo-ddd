@@ -1,8 +1,8 @@
 package assembler
 
 import (
-	userDto "github.com/jett/gin-ddd/application/dto/user"
-	entity "github.com/jett/gin-ddd/domain/entity/user"
+	userDto "github.com/jettjia/gin-ddd/application/dto/user"
+	entity "github.com/jettjia/gin-ddd/domain/entity/user"
 )
 
 type UserRSP struct {

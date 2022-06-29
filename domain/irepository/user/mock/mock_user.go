@@ -9,7 +9,7 @@ import (
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
-	entity "github.com/jett/gin-ddd/domain/entity/user"
+	entity "github.com/jettjia/gin-ddd/domain/entity/user"
 )
 
 // MockIUserRepository is a mock of IUserRepository interface.

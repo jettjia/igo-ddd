@@ -6,7 +6,7 @@ import (
 
 	"google.golang.org/grpc"
 
-	"github.com/jett/gin-ddd/interfaces/grpc/proto"
+	"github.com/jettjia/gin-ddd/interfaces/grpc/proto"
 )
 
 func main() {

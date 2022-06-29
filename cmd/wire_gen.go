@@ -6,7 +6,7 @@
 package cmd
 
 import (
-	"github.com/jett/gin-ddd/application/service/user"
+	"github.com/jettjia/gin-ddd/application/service/user"
 )
 
 // Injectors from wire.go:

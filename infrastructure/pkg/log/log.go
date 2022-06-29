@@ -6,7 +6,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"gopkg.in/natefinch/lumberjack.v2"
 
-	"github.com/jett/gin-ddd/infrastructure/config"
+	"github.com/jettjia/gin-ddd/infrastructure/config"
 )
 
 // Logger 服务日志服务，可适配其他日志组件

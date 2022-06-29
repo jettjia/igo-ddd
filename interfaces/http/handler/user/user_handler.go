@@ -5,9 +5,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	dto "github.com/jett/gin-ddd/application/dto/user"
-	service "github.com/jett/gin-ddd/application/service/user"
-	"github.com/jett/gin-ddd/infrastructure/pkg/response"
+	dto "github.com/jettjia/gin-ddd/application/dto/user"
+	service "github.com/jettjia/gin-ddd/application/service/user"
+	"github.com/jettjia/gin-ddd/infrastructure/pkg/response"
 )
 
 type UserHandler struct {

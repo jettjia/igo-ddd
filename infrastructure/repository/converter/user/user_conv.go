@@ -1,8 +1,8 @@
 package converter
 
 import (
-	entity "github.com/jett/gin-ddd/domain/entity/user"
-	po "github.com/jett/gin-ddd/infrastructure/repository/po/user"
+	entity "github.com/jettjia/gin-ddd/domain/entity/user"
+	po "github.com/jettjia/gin-ddd/infrastructure/repository/po/user"
 )
 
 type UserConv struct {
