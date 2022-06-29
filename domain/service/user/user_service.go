@@ -2,23 +2,29 @@ package user
 
 import (
 	"context"
-
 	entity "github.com/jett/gin-ddd/domain/entity/user"
-	repository "github.com/jett/gin-ddd/domain/irepository/user"
 	dao "github.com/jett/gin-ddd/infrastructure/repository/repositoryimpl/user"
+
+	repository "github.com/jett/gin-ddd/domain/irepository/user"
 )
 
-type UserService struct {
+// UserService user service interface
+type UserService interface {
+	FindUserByID(ctx context.Context, id uint64) (*entity.User, error)
+}
+
+var _ UserService = (*userService)(nil)
+
+type userService struct {
 	userRepo repository.IUserRepository
 }
 
-func NewUserService() *UserService {
-	return &UserService{
-		userRepo: dao.NewUserRepo(),
-	}
+func (u *userService) FindUserByID(ctx context.Context, id uint64) (*entity.User, error) {
+	return u.userRepo.GetUser(ctx, id)
 }
 
-func (u *UserService) GetUser(ctx context.Context, id uint64) (*entity.User, error) {
-
-	return u.userRepo.GetUser(ctx, id)
+func NewUserService() *userService {
+	return &userService{
+		userRepo: dao.NewUserRepo(),
+	}
 }
