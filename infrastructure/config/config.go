@@ -2,38 +2,52 @@ package config
 
 import (
 	"fmt"
+	"gopkg.in/yaml.v3"
 	"io/ioutil"
-	"os"
-	"path/filepath"
-	"strings"
 	"sync"
-
-	"gopkg.in/yaml.v2"
 )
 
 // ServerConf 服务端口，名称，mode
 type ServerConf struct {
-	Address    string `yaml:"address"`
-	ServerName string `yaml:"serverName"`
-	Mode       string `yaml:"mode"`
+	Lang        string `yaml:"lang"`
+	PublicPort  string `yaml:"public_port"`
+	PrivatePort string `yaml:"private_port"`
+	ServerName  string `yaml:"server_name"`
+	Mode        string `yaml:"mode"`
+}
+
+// GServerConf grpc服务端口
+type GServerConf struct {
+	Host            string `yaml:"host"`
+	PublicPort      int    `yaml:"public_port"`
+	MaxMsgSize      int    `yaml:"max_msg_size"`
+	ClientGoodsHost string `yaml:"client_goods_host"`
+	ClientGoodsPort int    `yaml:"client_goods_port"`
 }
 
 // MysqlConf mysql
 type MysqlConf struct {
-	Username string `yaml:"username"`
-	Password string `yaml:"password"`
-	DbHost   string `yaml:"dbHost"`
-	DbPort   int    `yaml:"dbPort"`
-	DbName   string `yaml:"dbName"`
+	Username        string `yaml:"username"`
+	Password        string `yaml:"password"`
+	DbHost          string `yaml:"db_host"`
+	DbPort          int    `yaml:"db_port"`
+	DbName          string `yaml:"db_name"`
+	Charset         string `yaml:"charset"`
+	MaxIdleConns    int    `yaml:"max_idle_conns"`
+	MaxOpenConns    int    `yaml:"max_open_conns"`
+	ConnMaxLifetime int    `yaml:"conn_max_lifetime"`
+	LogMode         int    `yaml:"log_mode"`
+	SlowThreshold   int    `yaml:"slow_threshold"`
 }
 
 // LogConf 日志
 type LogConf struct {
-	LogFileDir string `yaml:"logFileDir"`
-	AppName    string `yaml:"appName"`
-	MaxSize    int    `yaml:"maxSize"`    //文件多大开始切分
-	MaxBackups int    `yaml:"maxBackups"` //保留文件个数
-	MaxAge     int    `yaml:"maxAge"`     //文件保留最大实际
+	LogFileDir string `yaml:"log_file_dir"` // 日志目录
+	AppName    string `yaml:"app_name"`     //日志名称
+	MaxSize    int    `yaml:"max_size"`     //文件多大开始切分
+	MaxBackups int    `yaml:"max_backups"`  //保留文件个数
+	MaxAge     int    `yaml:"max_age"`      //文件保留最大实际
+	LogLevel   string `yaml:"log_level"`    // 日志级别
 }
 
 // NsqConf nsq
@@ -45,14 +59,15 @@ type NsqConf struct {
 }
 
 type Config struct {
-	Server ServerConf
-	Mysql  MysqlConf
-	Log    LogConf
-	Nsq    NsqConf
+	Server  ServerConf
+	Gserver GServerConf
+	Mysql   MysqlConf
+	Log     LogConf
+	Nsq     NsqConf
 }
 
-func NewConfig() (conf *Config) {
-	conf = initConfig()
+func NewConfig(env string) (conf *Config) {
+	conf = initConfig(env)
 	return
 }
 
@@ -62,13 +77,12 @@ var (
 )
 
 // InitConfig 读取配置
-func initConfig() *Config {
+func initConfig(env string) *Config {
+	if len(env) == 0 {
+		env = "debug"
+	}
 	configOnce.Do(func() {
-		wd, _ := os.Getwd()
-		for !strings.HasSuffix(wd, "go-ddd") {
-			wd = filepath.Dir(wd)
-		}
-		fileBytes, err := ioutil.ReadFile(fmt.Sprintf("%s/manifest/config/config.yaml", wd))
+		fileBytes, err := ioutil.ReadFile("./manifest/config/config-" + env + ".yaml")
 		if err != nil {
 			panic(fmt.Sprintf("load config.yaml failed: %v", err))
 		}

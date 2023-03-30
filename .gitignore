@@ -12,5 +12,6 @@ bin/
 cbuild
 */.DS_Store
 main
-go.sum
 tmp/
+report/
+static/upload

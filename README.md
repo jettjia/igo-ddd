@@ -1,34 +1,34 @@
-# DDD 项目（六边形架构）
+# DDD 项目
 
 ## 层级说明
 ```base
 ├── interfaces 接入层 【http/grpc适配, 这一层调用application层; 比如interfaces层定义了输入层的相关方法，以使用gin提供http接口为例，这里的handler等为使用gin提供的一些http接口，这一层调用application层】
-│   ├── grpc
-│   └── http
-│   └── facade  引用其他微服务（接口防腐层）
-│   ├── event 事件
-│   │   └── subscribe mq消费入口
-│   ├── job 定时任务
+│   ├── grpc
+│   └── http
+│   └── facade  引用其他微服务（接口防腐层）
+│   ├── event 事件
+│   │   └── subscribe mq消费入口
+│   ├── job 定时任务
 ├── application 应用层 【主要是调用domain层与infrastructure层来实现功能】
-│   ├── assembler   负责将内部领域模型转化为可对外的DTO
-│   └── dto Application层的所有接口返回值为DTO -- 入参/出参
-│   └── service 负责业务流程的编排，但本身不负责任何业务逻辑
+│   ├── assembler   负责将内部领域模型转化为可对外的DTO
+│   └── dto Application层的所有接口返回值为DTO -- 入参/出参
+│   └── service 负责业务流程的编排，但本身不负责任何业务逻辑
 ├── domain 领域层 【主要是定义了entity，以及repository接口；entity里头会包含一些领域逻辑,Domain模块仅依赖Types模块】
-│   ├── aggregate 聚合 【对于需要两个repo一起操作的，可以进行聚合，比如创建用户的时候有userRepo,还有日志的userLogRepo】
-│   ├── entity 实体 业务逻辑。也可以参数校验，扩展一些简单方法，减轻service的压力
-│   ├── event 事件
-│   │   ├── publish 所有发送mq在此处理
-│   │   └── subscribe 所有接受到mq处理逻辑在此处理
-│   ├── irepository 接口
-│   ├── service 领域服务 【单一操作，比如查看用户信息。没有聚合的操作的时候，在此实现】
+│   ├── aggregate 聚合 【对于需要两个repo一起操作的，可以进行聚合，比如创建用户的时候有userRepo,还有日志的userLogRepo】
+│   ├── entity 实体 业务逻辑。也可以参数校验，扩展一些简单方法，减轻service的压力
+│   ├── event 事件
+│   │   ├── publish 所有发送mq在此处理
+│   │   └── subscribe 所有接受到mq处理逻辑在此处理
+│   ├── irepository 接口
+│   ├── service 领域服务 【单一操作，比如查看用户信息。没有聚合的操作的时候，在此实现】
 └── infrastructure 基础设施层 【这里提供了针对domain层的repository接口的实现，还有其他一些基础的组件，提供给application层或者interfaces层使用】
-│   ├── config 配置文件
-│   ├── consts 系统常量
-│   ├── pkg 常用工具类封装（DB,log,util等）
-│   └── repository 针对domain层的repository接口的实现
-│   │   └── converter domain内对象转化 po {互转}
-│   │   └── dao 针对domain层的repository接口的具体实现
-│   │   └── po 数据库映射对象
+│   ├── config 配置文件
+│   ├── consts 系统常量
+│   ├── pkg 常用工具类封装（DB,log,util等）
+│   └── repository 针对domain层的repository接口的实现
+│   │   └── converter domain内对象转化 po {互转}
+│   │   └── dao 针对domain层的repository接口的具体实现
+│   │   └── po 数据库映射对象
 └── types 完全独立的模块(DP)，封装自定义的参数类型,例如 phone 相关的类型，校验合法、区号等。  
 
 ```
@@ -94,3 +94,32 @@ infrastructure/config/config.go 注意文件路径修改
 
 - 直接运行： go run main.go
 - 编译：go build
+
+
+
+# 更多
+
+## 支持多配置运行
+
+```
+go run main.go # 会使用默认的开发配置，即 debug模式
+go run main.go -env test # 会使用test的配置，即测试环境
+go run main.go -env release # 会使用release的配置，即正式环境
+```
+
+## 支持多协议并存
+
+程序可以支持：http协议，又分为内部接口、外部接口。比如
+
+外部接口: http://127.0.0.1:8080/openapi/pc/v1/sys/menu/1
+
+内部接口：http://127.0.0.1:8081/api/pc/v1/sys/demo
+
+grpc接口：127.0.0.1:18080
+
+
+
+更多请查看 doc说明
+
+
+

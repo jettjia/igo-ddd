@@ -1,6 +1,7 @@
-PKG := "github.com/jettjia/go-ddd"
+PKG := "github.com/jettjia/go-ddd-demo"
 PKG_LIST := $(shell go list ${PKG}/...)
-APP=go-ddd
+APP=GoDddDemo
+DOCKER_IMG=registry.cn-hangzhou.aliyuncs.com/jett-cicd/gas
 VERSION=1.0.0
 
 .PHONY: tidy
@@ -35,9 +36,11 @@ test:
 race: ## Run tests with data race detector
 	@go test -race ${PKG_LIST}
 
-.PHONY: build
-build:
-	set CGO_ENABLED=0
-	set GOOS=linux
-	set GOARCH=amd64
-	go build -o ./bin/linux_amd64/${APP}.${VERSION} main.go
+.PHONY: test-coverage
+test-coverage:
+	@go test ./... -v -coverprofile=report/cover 2>&1 | go-junit-report > report/ut_report.xml
+	@gocov convert report/cover | gocov-html > report/coverage.html
+
+.PHONY: golangci
+golangci:
+	@golangci-lint run --config .golangci.yml

@@ -1,14 +1,16 @@
 package global
 
 import (
-	"github.com/jinzhu/gorm"
+	"gorm.io/gorm"
 
-	"github.com/jettjia/go-ddd/infrastructure/config"
-	"github.com/jettjia/go-ddd/infrastructure/pkg/log"
+	entity "github.com/jettjia/go-ddd-demo/domain/entity/jwt"
+	"github.com/jettjia/go-ddd-demo/infrastructure/config"
+	"github.com/jettjia/go-ddd-demo/infrastructure/pkg/log"
 )
 
 var (
-	Gconfig *config.Config // 全局配置
-	GLog    log.Logger     // 全局log
-	GDB     *gorm.DB       // 全局 DB
+	Gconfig       *config.Config      // 全局配置
+	GLog          log.Logger          // 全局log
+	GDB           *gorm.DB            // 全局 DB
+	GCustomerInfo entity.CustomerInfo // 登录的全局信息
 )

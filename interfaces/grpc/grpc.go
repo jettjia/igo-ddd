@@ -1,43 +1,43 @@
 package grpc
 
 import (
-	"flag"
 	"fmt"
 	"net"
 
+	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
+	grpc_auth "github.com/grpc-ecosystem/go-grpc-middleware/auth"
+	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
+	"github.com/jettjia/go-ddd-demo/interfaces/grpc/middleware"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/health"
-	"google.golang.org/grpc/health/grpc_health_v1"
 
-	"github.com/jettjia/go-ddd/interfaces/grpc/registersrv"
+	"github.com/jettjia/go-ddd-demo/cmd"
+	"github.com/jettjia/go-ddd-demo/global"
+	"github.com/jettjia/go-ddd-demo/interfaces/grpc/ginit"
 )
 
-func InitGrpc() {
-	IP := flag.String("ip", "0.0.0.0", "ip地址")
-	Port := flag.Int("port", 0, "端口") // ip, port 这里应该是自动生成。后续注册到k8s等
-	*IP = "127.0.0.1"
-	*Port = 5001
+func InitGrpc(app *cmd.App) {
+	server := grpc.NewServer(
+		grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(
+			grpc_auth.StreamServerInterceptor(middleware.AuthInterceptor),
+			grpc_recovery.StreamServerInterceptor(middleware.RecoverInterceptor()),
+		)),
+		grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
+			grpc_auth.UnaryServerInterceptor(middleware.AuthInterceptor),
+			grpc_recovery.UnaryServerInterceptor(middleware.RecoverInterceptor()),
+		)),
+	)
 
-	// 启动grpc
-	server := grpc.NewServer()
+	ginit.GInit(app, server) // 初始化
 
-	// 注册pb服务
-	registersrv.RegisterSrv(server)
-
-	lis, err := net.Listen("tcp", fmt.Sprintf("%s:%d", *IP, *Port))
-	if err != nil {
-		panic("failed to listen:" + err.Error())
-	}
-	//注册服务健康检查
-	grpc_health_v1.RegisterHealthServer(server, health.NewServer())
+	listener, _ := net.Listen("tcp", fmt.Sprintf("%s:%d", global.Gconfig.Gserver.Host, global.Gconfig.Gserver.PublicPort))
 
 	// 启动grpc服务
 	go func() {
-		err = server.Serve(lis)
+		err := server.Serve(listener)
 		if err != nil {
-			panic("failed to start grpc:" + err.Error())
+			panic("InitGrpc:failed to start grpc:" + err.Error())
 		}
 	}()
 
-	fmt.Println("启动grpc服务的IP和Port是：", *IP, *Port)
+	fmt.Printf("[Grpc-debug] Listening and serving HTTP on :%d \r\n", global.Gconfig.Gserver.PublicPort)
 }

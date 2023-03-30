@@ -1,21 +1,37 @@
 package main
 
 import (
-	_ "github.com/jettjia/go-ddd/boot"
-	"github.com/jettjia/go-ddd/cmd"
-	"github.com/jettjia/go-ddd/interfaces/event"
-	"github.com/jettjia/go-ddd/interfaces/grpc"
-	"github.com/jettjia/go-ddd/interfaces/http"
+	"flag"
+
+	"github.com/jettjia/go-ddd-demo/boot"
+	"github.com/jettjia/go-ddd-demo/cmd"
+	"github.com/jettjia/go-ddd-demo/interfaces/event"
+	"github.com/jettjia/go-ddd-demo/interfaces/grpc"
+	"github.com/jettjia/go-ddd-demo/interfaces/http"
+	"github.com/jettjia/go-ddd-demo/interfaces/job"
 )
 
 func main() {
-	app, err := cmd.InitApp()
-	if err != nil {
-		panic(err)
-	}
-	http.InitHttp(app)   // start http
-	grpc.InitGrpc()      // start grpc
-	event.InitEvent(app) // start event mq
+	ENV := flag.String("env", "debug", "环境,配置读取")
+	flag.Parse()
+
+	// 全局配置
+	boot.InitServer(*ENV)
+
+	// 依赖注入
+	app := cmd.InitApp()
+
+	// start http
+	http.InitHttp(app)
+
+	// start grpc
+	grpc.InitGrpc(app)
+
+	// start event mq
+	event.InitEvent(app)
+
+	// start InitJob
+	job.InitJob(app, *ENV)
 
 	select {}
 }

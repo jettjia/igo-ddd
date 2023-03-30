@@ -5,27 +5,65 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/jettjia/go-ddd/cmd"
-	"github.com/jettjia/go-ddd/interfaces/http/middleware"
-	"github.com/jettjia/go-ddd/interfaces/http/router/user"
+	"github.com/jettjia/go-ddd-demo/cmd"
+	"github.com/jettjia/go-ddd-demo/global"
+	"github.com/jettjia/go-ddd-demo/interfaces/http/middleware"
+	internalRouter "github.com/jettjia/go-ddd-demo/interfaces/http/router/internal"
+	sysRouter "github.com/jettjia/go-ddd-demo/interfaces/http/router/sys"
 )
 
 func Routers(app *cmd.App) *gin.Engine {
-	Router := gin.Default()
-
+	engine := gin.Default()
+	gin.SetMode(global.Gconfig.Server.Mode) // 设置gin的模式
 	// 健康检查
-	Router.GET("/health", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"code":    http.StatusOK,
-			"success": true,
-		})
+	engine.GET("/health/ready", func(c *gin.Context) {
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.String(http.StatusOK, "ready")
+	})
+	engine.GET("/health/alive", func(c *gin.Context) {
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.String(http.StatusOK, "alive")
 	})
 
-	//配置跨域
-	Router.Use(middleware.Cors())
+	// 配置跨域
+	engine.Use(middleware.Cors())
+	// 全局recover
+	engine.Use(middleware.Recover())
+	// 全局错误
+	engine.Use(middleware.ErrorHandler)
+	// auth jwt
+	engine.Use(middleware.TokenAuthorization())
 
-	ApiGroup := Router.Group("/api/v1")
-	user.InitUserRouter(ApiGroup, app) //注入用户模块
+	// 注册路由
+	ApiGroup := engine.Group("/openapi/pc/v1")
+	sysRouter.InitSysRouter(ApiGroup, app) // sys
 
-	return Router
+	return engine
+}
+
+func RoutersInternal(app *cmd.App) *gin.Engine {
+	engine := gin.Default()
+	gin.SetMode(global.Gconfig.Server.Mode) // 设置gin的模式
+	// 健康检查
+	engine.GET("/health/ready", func(c *gin.Context) {
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.String(http.StatusOK, "ready")
+	})
+	engine.GET("/health/alive", func(c *gin.Context) {
+		c.Writer.Header().Set("Content-Type", "application/json")
+		c.String(http.StatusOK, "alive")
+	})
+
+	// 配置跨域
+	engine.Use(middleware.Cors())
+	// 全局recover
+	engine.Use(middleware.Recover())
+	// 全局错误
+	engine.Use(middleware.ErrorHandler)
+
+	// 注册路由
+	ApiGroup := engine.Group("/api/pc/v1")
+	internalRouter.InitInternalRouter(ApiGroup, app) // sys
+
+	return engine
 }

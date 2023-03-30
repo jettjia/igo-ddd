@@ -1,13 +1,27 @@
 package http
 
 import (
-	"github.com/jettjia/go-ddd/cmd"
-	"github.com/jettjia/go-ddd/global"
-	"github.com/jettjia/go-ddd/interfaces/http/router"
+	"github.com/jettjia/go-ddd-demo/cmd"
+	"github.com/jettjia/go-ddd-demo/global"
+	"github.com/jettjia/go-ddd-demo/interfaces/http/router"
 )
 
 func InitHttp(app *cmd.App) {
+	// open api
 	go func() {
-		router.Routers(app).Run(global.Gconfig.Server.Address) // 启动web
+		engine := router.Routers(app)
+		err := engine.Run(global.Gconfig.Server.PublicPort) // 启动web
+		if err != nil {
+			panic(any(err))
+		}
+	}()
+
+	// internal api
+	go func() {
+		engine := router.RoutersInternal(app)
+		err := engine.Run(global.Gconfig.Server.PrivatePort) // 启动web
+		if err != nil {
+			panic(any(err))
+		}
 	}()
 }

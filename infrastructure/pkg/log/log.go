@@ -1,12 +1,10 @@
 package log
 
 import (
-	"sync"
-
 	"github.com/sirupsen/logrus"
 	"gopkg.in/natefinch/lumberjack.v2"
 
-	"github.com/jettjia/go-ddd/infrastructure/config"
+	"github.com/jettjia/go-ddd-demo/infrastructure/config"
 )
 
 // Logger 服务日志服务，可适配其他日志组件
@@ -28,13 +26,12 @@ type Logger interface {
 }
 
 var (
-	logOnce sync.Once
-	l       Logger
+	l Logger
 )
 
 // NewLogger 获取日志句柄
-func NewLogger() Logger {
-	logOnce.Do(initLogger)
+func NewLogger(env string) Logger {
+	initLogger(env)
 
 	return l
 }
@@ -155,12 +152,13 @@ func (l *serverLog) Panicln(args ...interface{}) {
 	l.logger.Panicln(args...)
 }
 
-func initLogger() {
+func initLogger(env string) {
+	conf := config.NewConfig(env) // 读取配置
+
 	logHandle := &serverLog{}
 	logHandle.logger = logrus.New()
+	logHandle.logger.SetLevel(logrus.Level(logLevel(conf.Log.LogLevel)))
 	logHandle.logger.SetFormatter(&logrus.JSONFormatter{})
-
-	conf := config.NewConfig() // 读取配置
 
 	logDir := conf.Log.LogFileDir
 	if logDir == "" {
@@ -184,4 +182,25 @@ func initLogger() {
 	logHandle.logger.SetOutput(loggerOut)
 
 	l = logHandle
+}
+
+func logLevel(logLevel string) uint32 {
+	switch logLevel {
+	case "panic":
+		return 0
+	case "fatal":
+		return 1
+	case "error":
+		return 2
+	case "warn":
+		return 3
+	case "info":
+		return 4
+	case "debug":
+		return 5
+	case "trace":
+		return 6
+	}
+
+	return 0
 }

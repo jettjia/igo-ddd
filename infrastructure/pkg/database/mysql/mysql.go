@@ -2,12 +2,16 @@ package mysql
 
 import (
 	"fmt"
+	"log"
+	"os"
 	"time"
 
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
+	"gorm.io/gorm/schema"
 
-	"github.com/jettjia/go-ddd/global"
+	"github.com/jettjia/go-ddd-demo/global"
 )
 
 func NewDB() *gorm.DB {
@@ -16,36 +20,40 @@ func NewDB() *gorm.DB {
 
 func initDB() *gorm.DB {
 	c := global.Gconfig.Mysql
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local", c.Username, c.Password, c.DbHost, c.DbPort, c.DbName)
-	db, err := gorm.Open("mysql", dsn)
-	if err != nil {
-		panic(err)
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=True&loc=Local", c.Username, c.Password, c.DbHost, c.DbPort, c.DbName, c.Charset)
+
+	cfg := &gorm.Config{
+		NamingStrategy: schema.NamingStrategy{
+			SingularTable: true, // 使用单数表名
+		},
+		// gorm的log设置
+		Logger: logger.New(
+			log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
+			logger.Config{
+				SlowThreshold:             time.Duration(c.SlowThreshold) * time.Second, // 慢 SQL 阈值
+				LogLevel:                  logger.LogLevel(c.LogMode),                   // Log level
+				Colorful:                  true,                                         // 彩色打印
+				IgnoreRecordNotFoundError: true,                                         // 关闭 not found错误
+			},
+		),
 	}
-	db.SingularTable(true) //如果使用gorm来帮忙创建表时，这里填写false的话gorm会给表添加s后缀，填写true则不会
-	db.LogMode(true)       //打印sql语句
+	db, err := gorm.Open(mysql.Open(dsn), cfg)
+	if err != nil {
+		panic(any(err))
+	}
 
-	db.SetLogger(&MyLogger{})
+	sqlDB, _ := db.DB()
+	sqlDB.SetMaxIdleConns(c.MaxOpenConns)                                    //连接池最大允许的空闲连接数，如果没有sql任务需要执行的连接数大于20，超过的连接会被连接池关闭。
+	sqlDB.SetMaxOpenConns(c.MaxOpenConns)                                    //设置数据库连接池最大连接数
+	sqlDB.SetConnMaxLifetime(time.Duration(c.ConnMaxLifetime) * time.Second) //设置连接可复用的最大时间。
 
-	db.DB().SetMaxIdleConns(20)  //连接池最大允许的空闲连接数，如果没有sql任务需要执行的连接数大于20，超过的连接会被连接池关闭。
-	db.DB().SetMaxOpenConns(100) //设置数据库连接池最大连接数
-	db.DB().SetConnMaxLifetime(30 * time.Second)
+	// 自动创建表
+	MysqlAutoMigrate(db)
+
+	// 使用插件
+	if err = db.Use(&TracePlugin{}); err != nil {
+		panic("initDB:plugin:err")
+	}
 
 	return db
-}
-
-type MyLogger struct {
-}
-
-func (logger *MyLogger) Print(values ...interface{}) {
-	var (
-		level  = values[0]
-		source = values[1].(string)
-		doTime = values[2]
-		sql    = values[3].(string)
-	)
-
-	if level == "sql" {
-		logStr := fmt.Sprintf("%s", doTime) + " " + source + " " + sql
-		fmt.Println(logStr)
-	}
 }

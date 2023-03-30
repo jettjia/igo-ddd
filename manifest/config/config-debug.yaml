@@ -1,0 +1,46 @@
+# HTTP Server.
+server:
+  lang: zh-CN # "zh-CN", "zh-TW", "en"
+  public_port: ":8080" # 对外端口
+  private_port: ":8081" # 对内端口
+  server_name: "GoDddDemo"
+  mode: "debug" # gin的模式配置 debug, test, release
+  dev: "true" # true,false
+
+# GRPC Server.
+gserver:
+  host: "0.0.0.0" # 当前服务
+  public_port: 18080 # 当前服务
+  max_msg_size: 1024 # 最大发送接收字节数,单位 m
+  client_goods_host: "0.0.0.0" # goods服务的host
+  client_goods_port: 18080 # goods服务的port
+
+# Database.
+mysql:
+  username: "root"
+  password: "123456"
+  db_host: "10.4.7.71"
+  db_port: 3306
+  db_name: "go_demo"
+  charset: "utf8mb4"
+  max_open_conns: 50 # 设置数据库连接池最大连接数
+  max_idle_conns: 10 # 连接池最大允许的空闲连接数
+  conn_max_lifetime: 500 # 设置连接可复用的最大时间
+  log_mode: 4 # gorm错误级别; 1: Silent, 2:Error,3:Warn,4:Info
+  slow_threshold: 10 # 慢查询
+
+# Log.
+log:
+  log_file_dir: "./tmp"
+  app_name: "GoDddDemo"
+  max_size: 512
+  max_backups: 64
+  max_age: 7
+  log_leverl: "debug" // panic, fatal, error, warn, info, debug, trace
+
+# nsq.
+nsq:
+  nsq_producer_host: "10.4.7.71"
+  nsq_producer_port: 4150 # tcp
+  nsq_subscribe_host: "10.4.7.71"
+  nsq_subscribe_port: 4150 # tcp
