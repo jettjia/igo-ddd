@@ -157,7 +157,7 @@ func initLogger(env string) {
 
 	logHandle := &serverLog{}
 	logHandle.logger = logrus.New()
-	logHandle.logger.SetLevel(logrus.Level(logLevel(conf.Log.LogLevel)))
+	//logHandle.logger.SetLevel(logrus.Level(logLevel(conf.Log.LogLevel))) //todo
 	logHandle.logger.SetFormatter(&logrus.JSONFormatter{})
 
 	logDir := conf.Log.LogFileDir

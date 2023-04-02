@@ -1,9 +1,9 @@
 package mysql
 
 import (
+	"github.com/pkg/errors"
 	"time"
 
-	"github.com/gogf/gf/v2/util/gconv"
 	"gorm.io/gorm"
 
 	"github.com/jettjia/go-ddd-demo/global"
@@ -51,9 +51,12 @@ func after(db *gorm.DB) {
 	sql := db.Dialector.Explain(db.Statement.SQL.String(), db.Statement.Vars...)
 
 	err := db.Statement.Error
-	if err != nil && err.Error() != "record not found" {
-		errorInfo := responseutil.SqlError("error:" + err.Error() + ",sql:" + sql)
-		global.GLog.Errorln(gconv.String(errorInfo.Internale)) // 记录到日志
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return
+	}
+	if err != nil {
+		errorInfo := responseutil.SqlError()
+		global.GLog.Errorln(errorInfo.Internal, "sql:"+sql) // 记录到日志
 		return
 	}
 }

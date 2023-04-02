@@ -8,6 +8,7 @@ import (
 )
 
 // ISysMenuRepo sys_menu
+//
 //go:generate mockgen --source ./i_sys_menu_repo.go --destination ./mock/mock_i_sys_menu_repo.go --package mock
 type ISysMenuRepo interface {
 	Create(ctx context.Context, sysMenuEn *entity.SysMenu) (id uint64, err error)                                                                       // 创建

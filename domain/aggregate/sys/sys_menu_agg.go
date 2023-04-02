@@ -13,6 +13,7 @@ import (
 )
 
 // SysMenuAgg sys_menu_agg
+//
 //go:generate mockgen --source ./sys_menu_agg.go --destination ./mock/mock_sys_menu_agg.go --package mock
 type SysMenuAgg interface {
 	CreateSysMenu(ctx context.Context, sysMenuEn *entity.SysMenu) (id uint64, err error)                                                                                            // 创建

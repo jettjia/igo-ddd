@@ -20,9 +20,9 @@ type rspCreateData struct {
 }
 
 type rspErrorData struct {
-	Cause   interface{} `json:"cause"`
 	Code    int         `json:"code"`
 	Message string      `json:"message"`
+	Cause   interface{} `json:"cause"`
 }
 
 type rspListNull struct {

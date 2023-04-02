@@ -88,7 +88,7 @@ func PKCS7UnPadding(origData []byte) []byte {
 	return origData[:(length - unpadding)]
 }
 
-//TimeStringToTimeStamp RFC3339格式的字符串转时间戳
+// TimeStringToTimeStamp RFC3339格式的字符串转时间戳
 func TimeStringToTimeStamp(t string) int64 {
 	if 0 == len(t) {
 		return 0
