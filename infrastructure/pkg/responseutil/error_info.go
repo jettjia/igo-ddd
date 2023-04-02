@@ -3,74 +3,66 @@ package responseutil
 import (
 	"path/filepath"
 	"runtime"
-	"runtime/debug"
 	"strings"
 )
 
 // ErrorInfo 错误信息
 type ErrorInfo struct {
-	Internale ErrorInfoInternal `json:"internale"`
-	Out       ErrorInfoOut      `json:"out"`
+	Internal []frameErrorInfo
 }
 
-type ErrorInfoInternal struct {
-	Message  string `json:"message"`
-	Level    string `json:"level"`
+type frameErrorInfo struct {
 	Filename string `json:"filename"`
 	Line     int    `json:"line"`
-	Funcname string `json:"funcname"`
-}
-
-type ErrorInfoOut struct {
-	Message  string `json:"message"`
-	Filename string `json:"filename"`
-	Line     int    `json:"line"`
-	Funcname string `json:"funcname"`
+	FuncName string `json:"func_name"`
 }
 
 // Panic 异常
-func Panic(errText string) ErrorInfo {
-	debug.PrintStack()
-	return alarm("PANIC", errText, 5)
+func Panic() ErrorInfo {
+	return alarm()
 }
 
 // GrpcPanic 异常
-func GrpcPanic(errText string) ErrorInfo {
-	return alarm("GrpcPanic", errText, 7)
+func GrpcPanic() ErrorInfo {
+	return alarm()
 }
 
-func SqlError(errText string) ErrorInfo {
-	return alarm("ERROR", errText, 5)
+func SqlError() ErrorInfo {
+	return alarm()
 }
 
-func alarm(level string, errText string, skip int) ErrorInfo {
-	// 定义 文件名、行号、方法名
-	fileName, line, functionName, fileNameShort := "?", 0, "?", "?"
-	pc, fileName, line, ok := runtime.Caller(skip)
-	if ok {
-		functionName = runtime.FuncForPC(pc).Name()
-		functionName = filepath.Ext(functionName)
-		functionName = strings.TrimPrefix(functionName, ".")
+func alarm() (err ErrorInfo) {
+	pc := make([]uintptr, 10) // at least 1 entry needed
+	n := runtime.Callers(0, pc)
+	frames := runtime.CallersFrames(pc[:n])
 
-		_, fileNameShort = filepath.Split(fileName)
+	var frameErrorInfosInternal []frameErrorInfo
+
+	for {
+		frame, more := frames.Next()
+		if strings.Contains(frame.File, "runtime/") {
+			continue
+		}
+		if strings.Contains(frame.File, "gin-gonic/") {
+			continue
+		}
+
+		// 记录具体的错误到日日志中
+		var (
+			frameErrorInfo frameErrorInfo
+		)
+
+		_, fileName := filepath.Split(frame.File)
+		frameErrorInfo.Filename = fileName
+		frameErrorInfo.Line = frame.Line
+		frameErrorInfo.FuncName = frame.Function
+		frameErrorInfosInternal = append(frameErrorInfosInternal, frameErrorInfo)
+
+		if !more {
+			break
+		}
 	}
 
-	var msg = ErrorInfo{
-		Internale: ErrorInfoInternal{
-			Level:    level,
-			Message:  errText,
-			Filename: fileName,
-			Line:     line,
-			Funcname: functionName,
-		},
-
-		Out: ErrorInfoOut{
-			Message:  errText,
-			Filename: fileNameShort,
-			Line:     line,
-			Funcname: functionName,
-		},
-	}
-
-	return msg
+	err.Internal = frameErrorInfosInternal
+	return
 }

@@ -3,14 +3,11 @@ package repositoryimpl
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/errors/gerror"
-	"github.com/pkg/errors"
 	"gorm.io/gorm"
 
 	entity "github.com/jettjia/go-ddd-demo/domain/entity/sys"
 	isysMenu "github.com/jettjia/go-ddd-demo/domain/irepository/sys"
 	"github.com/jettjia/go-ddd-demo/global"
-	"github.com/jettjia/go-ddd-demo/infrastructure/pkg/responseutil"
 	"github.com/jettjia/go-ddd-demo/infrastructure/pkg/util"
 	converter "github.com/jettjia/go-ddd-demo/infrastructure/repository/converter/sys"
 	po "github.com/jettjia/go-ddd-demo/infrastructure/repository/po/sys"
@@ -100,21 +97,18 @@ func (r *SysMenu) FindPage(ctx context.Context, queries []*types.Query, reqPage 
 	dbQuery := r.db.Model(&po.SysMenu{}).Where(condition)
 
 	err := dbQuery.Count(&total).Error
-	if !errors.Is(err, gorm.ErrRecordNotFound) && err != nil {
-		err = gerror.NewCode(responseutil.CommInternalServer, err.Error())
-
+	if err != nil {
 		return entries, &rspPag, err
 	}
 
 	if total != 0 {
-		err := dbQuery.
+		err = dbQuery.
 			Select("sys_menu.*").
 			Order(reqSort.Sort + " " + reqSort.Direction).
 			Scopes(repositoryimpl.Paginate(reqPage.PageNum, reqPage.PageSize)).
 			Find(&sysMenuPos).Error
-		if !errors.Is(err, gorm.ErrRecordNotFound) && err != nil {
-			err = gerror.NewCode(responseutil.CommInternalServer, err.Error())
 
+		if err != nil {
 			return entries, &rspPag, err
 		}
 	}
