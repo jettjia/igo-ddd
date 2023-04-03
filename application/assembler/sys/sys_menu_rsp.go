@@ -37,7 +37,7 @@ func (a *SysMenuRsp) E2DFindSysMenuRsp(en *entity.SysMenu) *dto.FindSysMenuRsp {
 // E2DGetSysMenus entity转换成dto
 func (a *SysMenuRsp) E2DGetSysMenus(ens []*entity.SysMenu) []*dto.FindSysMenuRsp {
 	if len(ens) == 0 {
-		return nil
+		return []*dto.FindSysMenuRsp{}
 	}
 
 	var SysMenusRsp []*dto.FindSysMenuRsp
