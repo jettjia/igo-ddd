@@ -3,19 +3,18 @@ package httpclient
 import (
 	"context"
 	"encoding/json"
+	"github.com/pkg/errors"
+	"net/http"
 
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/gclient"
 	"github.com/gogf/gf/v2/util/gconv"
-	"github.com/pkg/errors"
 
 	"github.com/jettjia/go-ddd-demo/global"
 )
 
 // HttpClient http请求
-func HttpClient(ctx context.Context, apiUrl string, method string, reqParams interface{}, headers map[string]string, isDebug bool) (string, error) {
-	var rest string
-
+func HttpClient(ctx context.Context, apiUrl string, method string, reqParams interface{}, headers map[string]string, isDebug bool) (*http.Response, error) {
 	gClient := g.Client()
 
 	for k, v := range headers {
@@ -33,8 +32,9 @@ func HttpClient(ctx context.Context, apiUrl string, method string, reqParams int
 	if method == "GET" || method == "get" {
 		r, err := gClient.Get(ctx, apiUrl)
 		if err != nil {
-			return rest, err
+			return nil, err
 		}
+		defer r.Close()
 		defer func(r *gclient.Response) {
 			err := r.Close()
 			if err != nil {
@@ -42,18 +42,19 @@ func HttpClient(ctx context.Context, apiUrl string, method string, reqParams int
 			}
 		}(r)
 
-		if r.StatusCode != 200 && r.StatusCode != 201 && r.StatusCode != 204 {
-			return "", errors.New("HttpClient:get method error:" + gconv.String(r.StatusCode))
+		if r.StatusCode < 200 || r.StatusCode >= 300 {
+			return nil, errors.New("HttpClient:get method error:" + gconv.String(r.StatusCode))
 		}
-		return r.ReadAllString(), nil
+		return r.Response, nil
 	}
 
 	if method == "POST" || method == "post" {
 		bytes, _ := json.Marshal(reqParams)
 		r, err := gClient.Post(ctx, apiUrl, string(bytes))
 		if err != nil {
-			return rest, err
+			return nil, err
 		}
+		defer r.Close()
 		defer func(r *gclient.Response) {
 			err := r.Close()
 			if err != nil {
@@ -61,11 +62,11 @@ func HttpClient(ctx context.Context, apiUrl string, method string, reqParams int
 			}
 		}(r)
 
-		if r.StatusCode != 200 && r.StatusCode != 201 && r.StatusCode != 204 {
-			return "", errors.New("HttpClient:post method error:" + gconv.String(r.StatusCode))
+		if r.StatusCode < 200 || r.StatusCode >= 300 {
+			return nil, errors.New("HttpClient:post method error:" + gconv.String(r.StatusCode))
 		}
 
-		return r.ReadAllString(), nil
+		return r.Response, nil
 	}
 
 	if method == "POSTFORM" || method == "postform" {
@@ -73,8 +74,9 @@ func HttpClient(ctx context.Context, apiUrl string, method string, reqParams int
 			Post(ctx, apiUrl, reqParams)
 
 		if err != nil {
-			return rest, err
+			return nil, err
 		}
+		defer r.Close()
 		defer func(r *gclient.Response) {
 			err := r.Close()
 			if err != nil {
@@ -82,18 +84,19 @@ func HttpClient(ctx context.Context, apiUrl string, method string, reqParams int
 			}
 		}(r)
 
-		if r.StatusCode != 200 && r.StatusCode != 201 && r.StatusCode != 204 {
-			return "", errors.New("HttpClient:postform method error:" + gconv.String(r.StatusCode))
+		if r.StatusCode < 200 || r.StatusCode >= 300 {
+			return nil, errors.New("HttpClient:postform method error:" + gconv.String(r.StatusCode))
 		}
 
-		return r.ReadAllString(), nil
+		return r.Response, nil
 	}
 
 	if method == "DELETE" || method == "delete" || method == "del" || method == "DEL" {
 		r, err := gClient.Delete(ctx, apiUrl)
 		if err != nil {
-			return rest, err
+			return nil, err
 		}
+		defer r.Close()
 		defer func(r *gclient.Response) {
 			err := r.Close()
 			if err != nil {
@@ -101,10 +104,10 @@ func HttpClient(ctx context.Context, apiUrl string, method string, reqParams int
 			}
 		}(r)
 
-		if r.StatusCode != 200 && r.StatusCode != 201 && r.StatusCode != 204 {
-			return "", errors.New("HttpClient:delete method error:" + gconv.String(r.StatusCode))
+		if r.StatusCode < 200 || r.StatusCode >= 300 {
+			return nil, errors.New("HttpClient:delete method error:" + gconv.String(r.StatusCode))
 		}
-		return r.ReadAllString(), nil
+		return r.Response, nil
 	}
 
 	if method == "PUT" || method == "put" {
@@ -112,8 +115,9 @@ func HttpClient(ctx context.Context, apiUrl string, method string, reqParams int
 
 		r, err := gClient.Put(ctx, apiUrl, bytes)
 		if err != nil {
-			return rest, err
+			return nil, err
 		}
+		defer r.Close()
 		defer func(r *gclient.Response) {
 			err := r.Close()
 			if err != nil {
@@ -121,12 +125,12 @@ func HttpClient(ctx context.Context, apiUrl string, method string, reqParams int
 			}
 		}(r)
 
-		if r.StatusCode != 200 && r.StatusCode != 201 && r.StatusCode != 204 {
-			return "", errors.New("HttpClient:put method error:" + gconv.String(r.StatusCode))
+		if r.StatusCode < 200 || r.StatusCode >= 300 {
+			return nil, errors.New("HttpClient:put method error:" + gconv.String(r.StatusCode))
 		}
 
-		return r.ReadAllString(), nil
+		return r.Response, nil
 	}
 
-	return rest, nil
+	return nil, errors.New("HttpClient:No method matching")
 }
