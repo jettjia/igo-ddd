@@ -13,8 +13,8 @@ import (
 )
 
 func Routers(app *cmd.App) *gin.Engine {
+	gin.SetMode(global.Gconfig.Server.Mode)
 	engine := gin.Default()
-	gin.SetMode(global.Gconfig.Server.Mode) // 设置gin的模式
 	// 健康检查
 	engine.GET("/health/ready", func(c *gin.Context) {
 		c.Writer.Header().Set("Content-Type", "application/json")
@@ -33,6 +33,8 @@ func Routers(app *cmd.App) *gin.Engine {
 	engine.Use(middleware.ErrorHandler)
 	// auth jwt
 	engine.Use(middleware.TokenAuthorization())
+	// OpenTelemetry
+	engine.Use(middleware.Otelgin())
 
 	// 注册路由
 	ApiGroup := engine.Group("/openapi/pc/v1")
@@ -42,8 +44,8 @@ func Routers(app *cmd.App) *gin.Engine {
 }
 
 func RoutersInternal(app *cmd.App) *gin.Engine {
+	gin.SetMode(global.Gconfig.Server.Mode)
 	engine := gin.Default()
-	gin.SetMode(global.Gconfig.Server.Mode) // 设置gin的模式
 	// 健康检查
 	engine.GET("/health/ready", func(c *gin.Context) {
 		c.Writer.Header().Set("Content-Type", "application/json")
@@ -60,6 +62,8 @@ func RoutersInternal(app *cmd.App) *gin.Engine {
 	engine.Use(middleware.Recover())
 	// 全局错误
 	engine.Use(middleware.ErrorHandler)
+	// OpenTelemetry
+	engine.Use(middleware.Otelgin())
 
 	// 注册路由
 	ApiGroup := engine.Group("/api/pc/v1")

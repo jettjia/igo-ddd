@@ -1,7 +1,6 @@
 PKG := "github.com/jettjia/go-ddd-demo"
 PKG_LIST := $(shell go list ${PKG}/...)
 APP=GoDddDemo
-DOCKER_IMG=registry.cn-hangzhou.aliyuncs.com/jett-cicd/gas
 VERSION=1.0.0
 
 .PHONY: tidy
