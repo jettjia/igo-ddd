@@ -8,6 +8,7 @@ import (
 	"github.com/go-sql-driver/mysql"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gogf/gf/v2/errors/gerror"
+
 	"github.com/jettjia/go-ddd-demo/global"
 	"github.com/jettjia/go-ddd-demo/infrastructure/pkg/responseutil"
 )
