@@ -9,6 +9,7 @@ import (
 func MysqlAutoMigrate(db *gorm.DB) {
 	err := db.AutoMigrate(
 		&sysPo.SysMenu{},
+		&sysPo.SysLog{},
 	)
 
 	if err != nil {
