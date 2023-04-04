@@ -5,28 +5,31 @@ import (
 
 	assembler "github.com/jettjia/go-ddd-demo/application/assembler/sys"
 	dto "github.com/jettjia/go-ddd-demo/application/dto/sys"
-	dAggregate "github.com/jettjia/go-ddd-demo/domain/aggregate/sys"
+	agg "github.com/jettjia/go-ddd-demo/domain/aggregate/sys"
+	svc "github.com/jettjia/go-ddd-demo/domain/service/sys"
 )
 
 type SysMenuService struct {
-	SysMenuReq *assembler.SysMenuReq
-	SysMenuRsp *assembler.SysMenuRsp
-	SysMenuAgg dAggregate.SysMenuAgg
+	sysMenuReq *assembler.SysMenuReq
+	sysMenuRsp *assembler.SysMenuRsp
+	sysMenuAgg agg.SysMenuAgg
+	sysMenuSvc svc.SysMenuSvc
 }
 
 func NewSysMenuService() *SysMenuService {
 	return &SysMenuService{
-		SysMenuReq: assembler.NewSysMenuReq(),
-		SysMenuRsp: assembler.NewSysMenuRsp(),
-		SysMenuAgg: dAggregate.NewSysMenuAgg(),
+		sysMenuReq: assembler.NewSysMenuReq(),
+		sysMenuRsp: assembler.NewSysMenuRsp(),
+		sysMenuAgg: agg.NewSysMenuAgg(),
+		sysMenuSvc: svc.NewSysMenuSvc(),
 	}
 }
 
 func (s *SysMenuService) CreateSysMenu(ctx context.Context, req *dto.CreateSysMenuReq) (*dto.CreateSysMenuRsp, error) {
 	var rsp dto.CreateSysMenuRsp
-	en := s.SysMenuReq.D2ECreateSysMenu(req)
+	en := s.sysMenuReq.D2ECreateSysMenu(req)
 
-	id, err := s.SysMenuAgg.CreateSysMenu(ctx, en)
+	id, err := s.sysMenuAgg.CreateSysMenu(ctx, en)
 	if err != nil {
 		return nil, err
 	}
@@ -36,58 +39,58 @@ func (s *SysMenuService) CreateSysMenu(ctx context.Context, req *dto.CreateSysMe
 }
 
 func (s *SysMenuService) DeleteSysMenu(ctx context.Context, req *dto.DelSysMenusReq) error {
-	en := s.SysMenuReq.D2EDeleteSysMenu(req)
+	en := s.sysMenuReq.D2EDeleteSysMenu(req)
 
-	return s.SysMenuAgg.DeleteSysMenu(ctx, en)
+	return s.sysMenuAgg.DeleteSysMenu(ctx, en)
 }
 
 func (s *SysMenuService) UpdateSysMenu(ctx context.Context, req *dto.UpdateSysMenuReq) error {
-	en := s.SysMenuReq.D2EUpdateSysMenu(req)
+	en := s.sysMenuReq.D2EUpdateSysMenu(req)
 
-	return s.SysMenuAgg.UpdateSysMenu(ctx, en)
+	return s.sysMenuAgg.UpdateSysMenu(ctx, en)
 }
 
 func (s *SysMenuService) FindSysMenuById(ctx context.Context, req *dto.FindSysMenuByIdReq) (dto *dto.FindSysMenuRsp, err error) {
-	en, err := s.SysMenuAgg.FindSysMenuById(ctx, req.Id)
+	en, err := s.sysMenuSvc.FindSysMenuById(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
 
-	dto = s.SysMenuRsp.E2DFindSysMenuRsp(en)
+	dto = s.sysMenuRsp.E2DFindSysMenuRsp(en)
 
 	return dto, nil
 }
 
 func (s *SysMenuService) FindSysMenuByQuery(ctx context.Context, req *dto.FindSysMenuByQueryReq) (dto *dto.FindSysMenuRsp, err error) {
-	en, err := s.SysMenuAgg.FindSysMenuByQuery(ctx, req.Query)
+	en, err := s.sysMenuSvc.FindSysMenuByQuery(ctx, req.Query)
 	if err != nil {
 		return nil, err
 	}
 
-	dto = s.SysMenuRsp.E2DFindSysMenuRsp(en)
+	dto = s.sysMenuRsp.E2DFindSysMenuRsp(en)
 
 	return dto, nil
 }
 
 func (s *SysMenuService) FindSysMenuAll(ctx context.Context, req *dto.FindSysMenuAllReq) (entries []*dto.FindSysMenuRsp, err error) {
-	ens, err := s.SysMenuAgg.FindSysMenuAll(ctx, req.Query)
+	ens, err := s.sysMenuSvc.FindSysMenuAll(ctx, req.Query)
 	if err != nil {
 		return nil, err
 	}
 
-	entries = s.SysMenuRsp.E2DGetSysMenus(ens)
+	entries = s.sysMenuRsp.E2DGetSysMenus(ens)
 
 	return entries, nil
 }
 
 func (s *SysMenuService) FindSysMenuPage(ctx context.Context, req *dto.FindSysMenuPageReq) (*dto.FindSysMenuPageRsp, error) {
 	var rsp dto.FindSysMenuPageRsp
-	ens, pageData, err := s.SysMenuAgg.FindSysMenuPage(ctx, req.Query, req.PageData, req.SortData)
+	ens, pageData, err := s.sysMenuSvc.FindSysMenuPage(ctx, req.Query, req.PageData, req.SortData)
 	if err != nil {
 		return nil, err
 	}
 
-	entries := s.SysMenuRsp.E2DGetSysMenus(ens)
+	entries := s.sysMenuRsp.E2DGetSysMenus(ens)
 	rsp.Entries = entries
 	rsp.PageData = pageData
 
