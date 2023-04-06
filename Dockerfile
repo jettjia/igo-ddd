@@ -1,5 +1,5 @@
 # 表示依赖 alpine 最新版
-FROM golang:1.16 AS builder
+FROM golang:1.19-buster as builder
 MAINTAINER jettjia <jettjia@qq.com>
 
 ENV GO111MODULE=on \
@@ -35,6 +35,8 @@ ADD i18n     $WORKDIR/i18n
 
 # 暴露端口
 EXPOSE 8080
+EXPOSE 8081
+EXPOSE 18080
 
 # 设置时区为上海
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
