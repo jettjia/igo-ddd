@@ -36,8 +36,6 @@ func main() {
 	// start InitJob
 	job.InitJob(app, *ENV)
 
-	select {}
-
 	quit := make(chan os.Signal)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
