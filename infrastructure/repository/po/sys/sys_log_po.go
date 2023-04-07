@@ -1,4 +1,4 @@
-package po
+package sys
 
 type SysLog struct {
 	Id        uint64 `gorm:"column:id;primary_key;type:bigint(20) unsigned auto_increment;not null;comment:ID;" json:"id"` // ID

@@ -1,4 +1,4 @@
-package po
+package sys
 
 import (
 	"gorm.io/plugin/soft_delete"
