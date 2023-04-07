@@ -1,4 +1,4 @@
-package dto
+package sys
 
 import (
 	"github.com/jettjia/go-ddd-demo/types"

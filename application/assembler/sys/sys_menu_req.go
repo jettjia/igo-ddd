@@ -1,4 +1,4 @@
-package assembler
+package sys
 
 import (
 	"github.com/jinzhu/copier"

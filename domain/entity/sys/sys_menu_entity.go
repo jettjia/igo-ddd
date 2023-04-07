@@ -1,4 +1,4 @@
-package entity
+package sys
 
 type SysMenu struct {
 	Id          uint64 ` json:"id"`           // ID

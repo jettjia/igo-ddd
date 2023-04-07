@@ -1,4 +1,4 @@
-package entity
+package jwt
 
 import (
 	"time"

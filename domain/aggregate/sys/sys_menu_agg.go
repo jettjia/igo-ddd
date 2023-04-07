@@ -1,12 +1,12 @@
-package aggregate
+package sys
 
 import (
 	"context"
-	repositoryimpl "github.com/jettjia/go-ddd-demo/infrastructure/repository/repositoryimpl/sys"
 
 	entity "github.com/jettjia/go-ddd-demo/domain/entity/sys"
 	repoSys "github.com/jettjia/go-ddd-demo/domain/irepository/sys"
 	"github.com/jettjia/go-ddd-demo/global"
+	repositoryimpl "github.com/jettjia/go-ddd-demo/infrastructure/repository/repositoryimpl/sys"
 )
 
 // SysMenuAgg sys_menu_agg
