@@ -1,10 +1,10 @@
-package router
+package internal
 
 import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/jettjia/go-ddd-demo/cmd"
-	"github.com/jettjia/go-ddd-demo/interfaces/http/handler/internal_handler"
+	handler "github.com/jettjia/go-ddd-demo/interfaces/http/handler/internal_handler"
 )
 
 func InitInternalRouter(Router *gin.RouterGroup, app *cmd.App) {
