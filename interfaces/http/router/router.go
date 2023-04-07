@@ -33,6 +33,8 @@ func Routers(app *cmd.App) *gin.Engine {
 	engine.Use(middleware.ErrorHandler)
 	// auth jwt
 	engine.Use(middleware.TokenAuthorization())
+	// OpenTelemetry
+	engine.Use(middleware.Otelgin())
 
 	// 注册路由
 	ApiGroup := engine.Group("/openapi/pc/v1")
@@ -60,6 +62,8 @@ func RoutersInternal(app *cmd.App) *gin.Engine {
 	engine.Use(middleware.Recover())
 	// 全局错误
 	engine.Use(middleware.ErrorHandler)
+	// OpenTelemetry
+	engine.Use(middleware.Otelgin())
 
 	// 注册路由
 	ApiGroup := engine.Group("/api/pc/v1")
