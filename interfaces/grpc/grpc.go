@@ -2,6 +2,7 @@ package grpc
 
 import (
 	"fmt"
+	"github.com/jettjia/go-ddd-demo/boot"
 	"net"
 
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
@@ -10,12 +11,11 @@ import (
 	"github.com/jettjia/go-ddd-demo/interfaces/grpc/middleware"
 	"google.golang.org/grpc"
 
-	"github.com/jettjia/go-ddd-demo/cmd"
 	"github.com/jettjia/go-ddd-demo/global"
 	"github.com/jettjia/go-ddd-demo/interfaces/grpc/ginit"
 )
 
-func InitGrpc(app *cmd.App) {
+func InitGrpc(app *boot.App) {
 	server := grpc.NewServer(
 		grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(
 			grpc_auth.StreamServerInterceptor(middleware.AuthInterceptor),

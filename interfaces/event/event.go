@@ -1,9 +1,9 @@
 package event
 
 import (
-	"github.com/jettjia/go-ddd-demo/cmd"
+	"github.com/jettjia/go-ddd-demo/boot"
 )
 
 // InitEvent 消息事件
-func InitEvent(app *cmd.App) {
+func InitEvent(app *boot.App) {
 }

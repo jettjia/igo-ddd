@@ -2,12 +2,12 @@ package sys
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/jettjia/go-ddd-demo/boot"
 
-	"github.com/jettjia/go-ddd-demo/cmd"
 	handler "github.com/jettjia/go-ddd-demo/interfaces/http/handler/sys"
 )
 
-func InitSysRouter(Router *gin.RouterGroup, app *cmd.App) {
+func InitSysRouter(Router *gin.RouterGroup, app *boot.App) {
 	hand := handler.SysMenuHandler{
 		SysMenuSrv: app.SysMenuSvc,
 	}

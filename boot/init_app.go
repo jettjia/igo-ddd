@@ -1,4 +1,4 @@
-package cmd
+package boot
 
 import (
 	sysSvc "github.com/jettjia/go-ddd-demo/application/service/sys"

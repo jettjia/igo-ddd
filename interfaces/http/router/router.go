@@ -1,18 +1,18 @@
 package router
 
 import (
+	"github.com/jettjia/go-ddd-demo/boot"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/jettjia/go-ddd-demo/cmd"
 	"github.com/jettjia/go-ddd-demo/global"
 	"github.com/jettjia/go-ddd-demo/interfaces/http/middleware"
 	internalRouter "github.com/jettjia/go-ddd-demo/interfaces/http/router/internal"
 	sysRouter "github.com/jettjia/go-ddd-demo/interfaces/http/router/sys"
 )
 
-func Routers(app *cmd.App) *gin.Engine {
+func Routers(app *boot.App) *gin.Engine {
 	gin.SetMode(global.Gconfig.Server.Mode)
 	engine := gin.Default()
 	// 健康检查
@@ -41,7 +41,7 @@ func Routers(app *cmd.App) *gin.Engine {
 	return engine
 }
 
-func RoutersInternal(app *cmd.App) *gin.Engine {
+func RoutersInternal(app *boot.App) *gin.Engine {
 	gin.SetMode(global.Gconfig.Server.Mode)
 	engine := gin.Default()
 	// 健康检查

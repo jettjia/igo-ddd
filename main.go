@@ -7,7 +7,6 @@ import (
 	"syscall"
 
 	"github.com/jettjia/go-ddd-demo/boot"
-	"github.com/jettjia/go-ddd-demo/cmd"
 	"github.com/jettjia/go-ddd-demo/interfaces/event"
 	"github.com/jettjia/go-ddd-demo/interfaces/grpc"
 	"github.com/jettjia/go-ddd-demo/interfaces/http"
@@ -22,7 +21,7 @@ func main() {
 	boot.InitServer(*ENV)
 
 	// 依赖注入
-	app := cmd.InitApp()
+	app := boot.InitApp()
 
 	// start http
 	http.InitHttp(app)

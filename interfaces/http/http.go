@@ -1,12 +1,12 @@
 package http
 
 import (
-	"github.com/jettjia/go-ddd-demo/cmd"
+	"github.com/jettjia/go-ddd-demo/boot"
 	"github.com/jettjia/go-ddd-demo/global"
 	"github.com/jettjia/go-ddd-demo/interfaces/http/router"
 )
 
-func InitHttp(app *cmd.App) {
+func InitHttp(app *boot.App) {
 	// open api
 	go func() {
 		engine := router.Routers(app)

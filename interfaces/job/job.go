@@ -1,8 +1,8 @@
 package job
 
 import (
-	"github.com/jettjia/go-ddd-demo/cmd"
+	"github.com/jettjia/go-ddd-demo/boot"
 )
 
-func InitJob(app *cmd.App, env string) {
+func InitJob(app *boot.App, env string) {
 }
