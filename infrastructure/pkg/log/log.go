@@ -157,7 +157,7 @@ func initLogger(env string) {
 
 	logHandle := &serverLog{}
 	logHandle.logger = logrus.New()
-	//logHandle.logger.SetLevel(logrus.Level(logLevel(conf.Log.LogLevel))) //todo
+	logHandle.logger.SetLevel(logLevel(conf.Log.LogLevel))
 	logHandle.logger.SetFormatter(&logrus.JSONFormatter{})
 
 	logDir := conf.Log.LogFileDir
@@ -184,23 +184,23 @@ func initLogger(env string) {
 	l = logHandle
 }
 
-func logLevel(logLevel string) uint32 {
+func logLevel(logLevel string) (level logrus.Level) {
 	switch logLevel {
 	case "panic":
-		return 0
+		return logrus.PanicLevel
 	case "fatal":
-		return 1
+		return logrus.FatalLevel
 	case "error":
-		return 2
+		return logrus.ErrorLevel
 	case "warn":
-		return 3
+		return logrus.WarnLevel
 	case "info":
-		return 4
+		return logrus.InfoLevel
 	case "debug":
-		return 5
+		return logrus.DebugLevel
 	case "trace":
-		return 6
+		return logrus.TraceLevel
 	}
 
-	return 0
+	return logrus.DebugLevel
 }
