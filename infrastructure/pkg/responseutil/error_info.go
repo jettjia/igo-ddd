@@ -2,16 +2,18 @@
 package responseutil
 
 import (
-	"github.com/jettjia/go-ddd-demo/global"
+	"github.com/sirupsen/logrus"
 	"path/filepath"
 	"runtime"
 	"strings"
+
+	"github.com/jettjia/go-ddd-demo/global"
 )
 
 // ErrorInfo 堆栈错误信息
 type (
 	ErrorInfo struct {
-		Internal []frameErrorInfo
+		Internal []frameErrorInfo `json:"internal"`
 	}
 
 	frameErrorInfo struct {
@@ -34,7 +36,9 @@ func Panic(err interface{}) ErrorInfo {
 	errInfo := alarm()
 	logErr.Err = err
 	logErr.Stack = errInfo
-	global.GLog.Errorln(logErr) // 记录到日志
+	global.GLog.WithFields(logrus.Fields{
+		"detail": logErr,
+	}).Errorln(logErr.Err) // 记录到日志
 
 	return errInfo
 }
@@ -45,7 +49,9 @@ func GrpcPanic(err string) ErrorInfo {
 	errInfo := alarm()
 	logErr.Err = err
 	logErr.Stack = errInfo
-	global.GLog.Errorln(logErr) // 记录到日志
+	global.GLog.WithFields(logrus.Fields{
+		"detail": logErr,
+	}).Errorln(logErr.Err) // 记录到日志
 
 	return errInfo
 }
@@ -56,7 +62,9 @@ func SqlError(err string, sql string) {
 	logErr.Err = err
 	logErr.Stack = alarm()
 	logErr.Sql = sql
-	global.GLog.Errorln(logErr) // 记录到日志
+	global.GLog.WithFields(logrus.Fields{
+		"detail": logErr,
+	}).Errorln(logErr.Err) // 记录到日志
 	return
 }
 
