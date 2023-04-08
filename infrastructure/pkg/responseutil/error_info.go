@@ -13,7 +13,7 @@ import (
 // ErrorInfo 堆栈错误信息
 type (
 	ErrorInfo struct {
-		Internal []frameErrorInfo `json:"internal"`
+		Internal []frameErrorInfo `json:"stacks"`
 	}
 
 	frameErrorInfo struct {
@@ -25,20 +25,18 @@ type (
 
 // 记录到日志的错误信息
 type logErr struct {
-	Err   interface{} `json:"err"`
-	Stack interface{} `json:"stack"`
-	Sql   string      `json:"sql,omitempty"`
+	Stack []frameErrorInfo `json:"stack"`
+	Sql   string           `json:"sql,omitempty"`
 }
 
 // Panic 异常
 func Panic(err interface{}) ErrorInfo {
 	var logErr logErr
 	errInfo := alarm()
-	logErr.Err = err
-	logErr.Stack = errInfo
+	logErr.Stack = errInfo.Internal
 	global.GLog.WithFields(logrus.Fields{
 		"detail": logErr,
-	}).Errorln(logErr.Err) // 记录到日志
+	}).Errorln(err) // 记录到日志
 
 	return errInfo
 }
@@ -47,11 +45,10 @@ func Panic(err interface{}) ErrorInfo {
 func GrpcPanic(err string) ErrorInfo {
 	var logErr logErr
 	errInfo := alarm()
-	logErr.Err = err
-	logErr.Stack = errInfo
+	logErr.Stack = errInfo.Internal
 	global.GLog.WithFields(logrus.Fields{
 		"detail": logErr,
-	}).Errorln(logErr.Err) // 记录到日志
+	}).Errorln(err) // 记录到日志
 
 	return errInfo
 }
@@ -59,12 +56,12 @@ func GrpcPanic(err string) ErrorInfo {
 // SqlError 异常
 func SqlError(err string, sql string) {
 	var logErr logErr
-	logErr.Err = err
-	logErr.Stack = alarm()
+	errInfo := alarm()
+	logErr.Stack = errInfo.Internal
 	logErr.Sql = sql
 	global.GLog.WithFields(logrus.Fields{
 		"detail": logErr,
-	}).Errorln(logErr.Err) // 记录到日志
+	}).Errorln(err) // 记录到日志
 	return
 }
 
