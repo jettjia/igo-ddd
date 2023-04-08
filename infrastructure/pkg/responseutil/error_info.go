@@ -95,7 +95,8 @@ func alarm() (err ErrorInfo) {
 		_, fileName := filepath.Split(frame.File)
 		frameErrorInfo.Filename = fileName
 		frameErrorInfo.Line = frame.Line
-		frameErrorInfo.FuncName = frame.Function
+		_, function := filepath.Split(frame.Function)
+		frameErrorInfo.FuncName = function
 		frameErrorInfosInternal = append(frameErrorInfosInternal, frameErrorInfo)
 
 		if !more {
