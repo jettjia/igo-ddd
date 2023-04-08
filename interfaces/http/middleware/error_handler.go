@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"fmt"
 	"github.com/pkg/errors"
 
 	"github.com/gin-gonic/gin"
@@ -9,7 +8,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gogf/gf/v2/errors/gerror"
 
-	"github.com/jettjia/go-ddd-demo/global"
 	"github.com/jettjia/go-ddd-demo/infrastructure/pkg/responseutil"
 )
 
@@ -34,7 +32,6 @@ func ErrorHandler(c *gin.Context) {
 			return
 		}
 
-		global.GLog.Errorln(fmt.Sprintf("%+v", err)) // 记录到日志
-		responseutil.RspErr(c, err)                  // 接口错误
+		responseutil.RspErr(c, err) // 接口错误
 	}
 }

@@ -1,34 +1,63 @@
+// Package responseutil 捕获错误的堆栈信息
 package responseutil
 
 import (
+	"github.com/jettjia/go-ddd-demo/global"
 	"path/filepath"
 	"runtime"
 	"strings"
 )
 
-// ErrorInfo 错误信息
-type ErrorInfo struct {
-	Internal []frameErrorInfo
-}
+// ErrorInfo 堆栈错误信息
+type (
+	ErrorInfo struct {
+		Internal []frameErrorInfo
+	}
 
-type frameErrorInfo struct {
-	Filename string `json:"filename"`
-	Line     int    `json:"line"`
-	FuncName string `json:"func_name"`
+	frameErrorInfo struct {
+		Filename string `json:"filename"`
+		Line     int    `json:"line"`
+		FuncName string `json:"func_name"`
+	}
+)
+
+// 记录到日志的错误信息
+type logErr struct {
+	Err   interface{} `json:"err"`
+	Stack interface{} `json:"stack"`
+	Sql   string      `json:"sql,omitempty"`
 }
 
 // Panic 异常
-func Panic() ErrorInfo {
-	return alarm()
+func Panic(err interface{}) ErrorInfo {
+	var logErr logErr
+	errInfo := alarm()
+	logErr.Err = err
+	logErr.Stack = errInfo
+	global.GLog.Errorln(logErr) // 记录到日志
+
+	return errInfo
 }
 
 // GrpcPanic 异常
-func GrpcPanic() ErrorInfo {
-	return alarm()
+func GrpcPanic(err string) ErrorInfo {
+	var logErr logErr
+	errInfo := alarm()
+	logErr.Err = err
+	logErr.Stack = errInfo
+	global.GLog.Errorln(logErr) // 记录到日志
+
+	return errInfo
 }
 
-func SqlError() ErrorInfo {
-	return alarm()
+// SqlError 异常
+func SqlError(err string, sql string) {
+	var logErr logErr
+	logErr.Err = err
+	logErr.Stack = alarm()
+	logErr.Sql = sql
+	global.GLog.Errorln(logErr) // 记录到日志
+	return
 }
 
 func alarm() (err ErrorInfo) {
@@ -44,6 +73,9 @@ func alarm() (err ErrorInfo) {
 			continue
 		}
 		if strings.Contains(frame.File, "gin-gonic/") {
+			continue
+		}
+		if strings.Contains(frame.File, "infrastructure/pkg") {
 			continue
 		}
 
