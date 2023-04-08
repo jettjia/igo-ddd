@@ -6,7 +6,6 @@ import (
 
 	"gorm.io/gorm"
 
-	"github.com/jettjia/go-ddd-demo/global"
 	"github.com/jettjia/go-ddd-demo/infrastructure/pkg/responseutil"
 )
 
@@ -55,8 +54,6 @@ func after(db *gorm.DB) {
 		return
 	}
 	if err != nil {
-		errorInfo := responseutil.SqlError()
-		global.GLog.Errorln(errorInfo.Internal, "sql:"+sql) // 记录到日志
-		return
+		responseutil.SqlError(err.Error(), sql) // 记录错误信息
 	}
 }
