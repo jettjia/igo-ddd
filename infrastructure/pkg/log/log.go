@@ -1,6 +1,9 @@
 package log
 
 import (
+	"io"
+	"os"
+
 	"github.com/sirupsen/logrus"
 	"gopkg.in/natefinch/lumberjack.v2"
 
@@ -20,10 +23,6 @@ func initLogger(env string) *logrus.Logger {
 	logHandle.SetFormatter(&logrus.JSONFormatter{
 		TimestampFormat: "2006-01-02 15:04:05",
 	})
-	//logHandle.WithFields(logrus.Fields{
-	//	"server": conf.Server.ServerName,
-	//	"id":     util.Ulid(),
-	//}) // todo
 
 	logDir := conf.Log.LogFileDir
 	if logDir == "" {
@@ -36,15 +35,20 @@ func initLogger(env string) *logrus.Logger {
 
 	logFileName := logDir + "/" + logName + ".log"
 
-	loggerOut := &lumberjack.Logger{
-		Filename:   logFileName,
-		MaxSize:    conf.Log.MaxSize,    // 日志文件大小，单位是 MB
-		MaxBackups: conf.Log.MaxBackups, // 最大过期日志保留个数
-		MaxAge:     conf.Log.MaxAge,     // 保留过期文件最大时间，单位 天
-		Compress:   true,                // 是否压缩日志，默认是不压缩。这里设置为true，压缩日志
+	var output io.Writer
+	if conf.Log.LogOut == "console" {
+		output = os.Stdout
+	} else {
+		output = &lumberjack.Logger{
+			Filename:   logFileName,
+			MaxSize:    conf.Log.MaxSize,    // 日志文件大小，单位是 MB
+			MaxBackups: conf.Log.MaxBackups, // 最大过期日志保留个数
+			MaxAge:     conf.Log.MaxAge,     // 保留过期文件最大时间，单位 天
+			Compress:   true,                // 是否压缩日志，默认是不压缩。这里设置为true，压缩日志
+		}
 	}
 
-	logHandle.SetOutput(loggerOut)
+	logHandle.SetOutput(output)
 
 	return logHandle
 }

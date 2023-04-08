@@ -48,6 +48,7 @@ type LogConf struct {
 	MaxBackups int    `yaml:"max_backups"`  //保留文件个数
 	MaxAge     int    `yaml:"max_age"`      //文件保留最大实际
 	LogLevel   string `yaml:"log_level"`    // 日志级别
+	LogOut     string `yaml:"log_out"`      // 日志输出位置
 }
 
 // NsqConf nsq

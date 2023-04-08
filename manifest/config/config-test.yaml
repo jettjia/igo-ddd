@@ -37,6 +37,7 @@ log:
   max_backups: 64
   max_age: 7
   log_level: "debug" # panic, fatal, error, warn, info, debug, trace
+  log_out: "console" # console, file
 
 # nsq.
 nsq:
