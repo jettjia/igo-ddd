@@ -34,7 +34,6 @@ func (a *sysMenuAgg) CreateSysMenu(ctx context.Context, sysMenuEn *entity.SysMen
 	if id, err = a.sysMenuRepo.Create(ctx, sysMenuEn); err != nil {
 		return 0, err
 	}
-
 	var (
 		sysLogEn entity.SysLog
 	)
