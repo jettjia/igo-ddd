@@ -31,7 +31,7 @@ COPY --from=builder /build/GoDddDemo /GoDddDemo
 # 拷贝配置文件到容器中
 ENV WORKDIR  /app
 COPY manifest/config $WORKDIR/manifest/config
-ADD i18n     $WORKDIR/i18n
+ADD manifest/i18n     $WORKDIR/i18n
 
 # 暴露端口
 EXPOSE 8080
