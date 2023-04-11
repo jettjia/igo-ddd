@@ -34,7 +34,6 @@ func HttpClient(ctx context.Context, apiUrl string, method string, reqParams int
 		if err != nil {
 			return nil, err
 		}
-		defer r.Close()
 		defer func(r *gclient.Response) {
 			err := r.Close()
 			if err != nil {
@@ -54,7 +53,6 @@ func HttpClient(ctx context.Context, apiUrl string, method string, reqParams int
 		if err != nil {
 			return nil, err
 		}
-		defer r.Close()
 		defer func(r *gclient.Response) {
 			err := r.Close()
 			if err != nil {
@@ -76,7 +74,6 @@ func HttpClient(ctx context.Context, apiUrl string, method string, reqParams int
 		if err != nil {
 			return nil, err
 		}
-		defer r.Close()
 		defer func(r *gclient.Response) {
 			err := r.Close()
 			if err != nil {
@@ -96,7 +93,6 @@ func HttpClient(ctx context.Context, apiUrl string, method string, reqParams int
 		if err != nil {
 			return nil, err
 		}
-		defer r.Close()
 		defer func(r *gclient.Response) {
 			err := r.Close()
 			if err != nil {
@@ -117,7 +113,6 @@ func HttpClient(ctx context.Context, apiUrl string, method string, reqParams int
 		if err != nil {
 			return nil, err
 		}
-		defer r.Close()
 		defer func(r *gclient.Response) {
 			err := r.Close()
 			if err != nil {
