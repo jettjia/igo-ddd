@@ -10,8 +10,8 @@ import (
 // ServerConf 服务端口，名称，mode
 type ServerConf struct {
 	Lang        string `yaml:"lang"`
-	PublicPort  string `yaml:"public_port"`
-	PrivatePort string `yaml:"private_port"`
+	PublicPort  int    `yaml:"public_port"`
+	PrivatePort int    `yaml:"private_port"`
 	ServerName  string `yaml:"server_name"`
 	Mode        string `yaml:"mode"`
 }

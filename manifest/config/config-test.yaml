@@ -1,8 +1,8 @@
 # HTTP Server.
 server:
   lang: zh-CN # "zh-CN", "zh-TW", "en"
-  public_port: ":8080" # 对外端口
-  private_port: ":8081" # 对内端口
+  public_port: 8080 # 对外端口
+  private_port: 8081 # 对内端口
   server_name: "GoDddDemo"
   mode: "debug" # gin的模式配置 debug, test, release
   dev: "true" # true,false
@@ -37,7 +37,7 @@ log:
   max_backups: 64
   max_age: 7
   log_level: "debug" # panic, fatal, error, warn, info, debug, trace
-  log_out: "console" # console, file
+  log_out: "file" # console, file
 
 # nsq.
 nsq:

@@ -1,5 +1,5 @@
 # 表示依赖 alpine 最新版
-FROM golang:1.19-buster as builder
+FROM --platform=$TARGETPLATFORM golang:1.19-alpine AS builder
 MAINTAINER jettjia <jettjia@qq.com>
 
 ENV GO111MODULE=on \
