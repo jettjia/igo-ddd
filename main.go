@@ -20,20 +20,17 @@ func main() {
 	// 全局配置
 	boot.InitServer(*ENV)
 
-	// 依赖注入
-	app := boot.InitApp()
-
 	// start http
-	http.InitHttp(app)
+	http.InitHttp()
 
 	// start grpc
-	grpc.InitGrpc(app)
+	grpc.InitGrpc()
 
 	// start event mq
-	event.InitEvent(app)
+	event.InitEvent()
 
 	// start InitJob
-	job.InitJob(app, *ENV)
+	job.InitJob(*ENV)
 
 	quit := make(chan os.Signal)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)

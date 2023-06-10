@@ -12,11 +12,17 @@ import (
 	"github.com/jettjia/go-ddd-demo/infrastructure/pkg/validate"
 )
 
-type SysMenuHandler struct {
+type sysMenuHandler struct {
 	SysMenuSrv *service.SysMenuService
 }
 
-func (h *SysMenuHandler) CreateSysMenu(c *gin.Context) {
+func NewSysMenuHandler() *sysMenuHandler {
+	return &sysMenuHandler{
+		SysMenuSrv: service.NewSysMenuService(),
+	}
+}
+
+func (h *sysMenuHandler) CreateSysMenu(c *gin.Context) {
 	// 参数解析
 	dtoReq := dto.CreateSysMenuReq{}
 	err := c.BindJSON(&dtoReq)
@@ -44,7 +50,7 @@ func (h *SysMenuHandler) CreateSysMenu(c *gin.Context) {
 	responseutil.RspOk(c, http.StatusCreated, res.Id)
 }
 
-func (h *SysMenuHandler) DeleteSysMenu(c *gin.Context) {
+func (h *sysMenuHandler) DeleteSysMenu(c *gin.Context) {
 	// 参数解析
 	dtoReq := dto.DelSysMenusReq{}
 	err := c.ShouldBindUri(&dtoReq)
@@ -72,7 +78,7 @@ func (h *SysMenuHandler) DeleteSysMenu(c *gin.Context) {
 	responseutil.RspOk(c, http.StatusNoContent, nil)
 }
 
-func (h *SysMenuHandler) UpdateSysMenu(c *gin.Context) {
+func (h *sysMenuHandler) UpdateSysMenu(c *gin.Context) {
 	// 参数解析
 	dtoReq := dto.UpdateSysMenuReq{}
 	err := c.ShouldBindUri(&dtoReq)
@@ -105,7 +111,7 @@ func (h *SysMenuHandler) UpdateSysMenu(c *gin.Context) {
 	responseutil.RspOk(c, http.StatusNoContent, nil)
 }
 
-func (h *SysMenuHandler) FindSysMenuById(c *gin.Context) {
+func (h *sysMenuHandler) FindSysMenuById(c *gin.Context) {
 	// 参数解析
 	dtoReq := dto.FindSysMenuByIdReq{}
 	err := c.ShouldBindUri(&dtoReq)
@@ -133,7 +139,7 @@ func (h *SysMenuHandler) FindSysMenuById(c *gin.Context) {
 	responseutil.RspOk(c, http.StatusOK, rsp)
 }
 
-func (h *SysMenuHandler) FindSysMenuByQuery(c *gin.Context) {
+func (h *sysMenuHandler) FindSysMenuByQuery(c *gin.Context) {
 	// 参数解析
 	dtoReq := dto.FindSysMenuByQueryReq{}
 	err := c.ShouldBindJSON(&dtoReq)
@@ -161,7 +167,7 @@ func (h *SysMenuHandler) FindSysMenuByQuery(c *gin.Context) {
 	responseutil.RspOk(c, http.StatusOK, rsp)
 }
 
-func (h *SysMenuHandler) FindSysMenuAll(c *gin.Context) {
+func (h *sysMenuHandler) FindSysMenuAll(c *gin.Context) {
 	// 参数解析
 	dtoReq := dto.FindSysMenuAllReq{}
 	err := c.ShouldBindJSON(&dtoReq)
@@ -188,7 +194,7 @@ func (h *SysMenuHandler) FindSysMenuAll(c *gin.Context) {
 	responseutil.RspOk(c, http.StatusOK, rsp)
 }
 
-func (h *SysMenuHandler) FindSysMenuPage(c *gin.Context) {
+func (h *sysMenuHandler) FindSysMenuPage(c *gin.Context) {
 	// 参数解析
 	dtoReq := dto.FindSysMenuPageReq{}
 	err := c.ShouldBindJSON(&dtoReq)

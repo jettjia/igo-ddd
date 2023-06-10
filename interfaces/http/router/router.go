@@ -1,7 +1,6 @@
 package router
 
 import (
-	"github.com/jettjia/go-ddd-demo/boot"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -12,7 +11,7 @@ import (
 	sysRouter "github.com/jettjia/go-ddd-demo/interfaces/http/router/sys"
 )
 
-func Routers(app *boot.App) *gin.Engine {
+func Routers() *gin.Engine {
 	gin.SetMode(global.Gconfig.Server.Mode)
 	engine := gin.Default()
 	// 健康检查
@@ -36,12 +35,12 @@ func Routers(app *boot.App) *gin.Engine {
 
 	// 注册路由
 	ApiGroup := engine.Group("/openapi/pc/v1")
-	sysRouter.InitSysRouter(ApiGroup, app) // sys
+	sysRouter.InitSysRouter(ApiGroup) // sys
 
 	return engine
 }
 
-func RoutersInternal(app *boot.App) *gin.Engine {
+func RoutersInternal() *gin.Engine {
 	gin.SetMode(global.Gconfig.Server.Mode)
 	engine := gin.Default()
 	// 健康检查
@@ -63,7 +62,7 @@ func RoutersInternal(app *boot.App) *gin.Engine {
 
 	// 注册路由
 	ApiGroup := engine.Group("/api/pc/v1")
-	internalRouter.InitInternalRouter(ApiGroup, app) // sys
+	internalRouter.InitInternalRouter(ApiGroup) // sys
 
 	return engine
 }

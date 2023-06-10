@@ -2,7 +2,6 @@ package grpc
 
 import (
 	"fmt"
-	"github.com/jettjia/go-ddd-demo/boot"
 	"net"
 
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
@@ -15,7 +14,7 @@ import (
 	"github.com/jettjia/go-ddd-demo/interfaces/grpc/ginit"
 )
 
-func InitGrpc(app *boot.App) {
+func InitGrpc() {
 	server := grpc.NewServer(
 		grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(
 			grpc_auth.StreamServerInterceptor(middleware.AuthInterceptor),
@@ -27,7 +26,7 @@ func InitGrpc(app *boot.App) {
 		)),
 	)
 
-	ginit.GInit(app, server) // 初始化
+	ginit.GInit(server) // 初始化
 
 	listener, _ := net.Listen("tcp", fmt.Sprintf("%s:%d", global.Gconfig.Gserver.Host, global.Gconfig.Gserver.PublicPort))
 

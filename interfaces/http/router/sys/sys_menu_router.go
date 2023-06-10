@@ -2,15 +2,11 @@ package sys
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/jettjia/go-ddd-demo/boot"
-
 	handler "github.com/jettjia/go-ddd-demo/interfaces/http/handler/sys"
 )
 
-func InitSysRouter(Router *gin.RouterGroup, app *boot.App) {
-	hand := handler.SysMenuHandler{
-		SysMenuSrv: app.SysMenuSvc,
-	}
+func InitSysRouter(Router *gin.RouterGroup) {
+	hand := handler.NewSysMenuHandler()
 	UserRouter := Router.Group("/sys")
 	{
 		UserRouter.POST("menu", hand.CreateSysMenu)       // 创建
