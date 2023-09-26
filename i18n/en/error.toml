@@ -1,6 +1,0 @@
-BadRequest = "Invalid parameter"
-Unauthorized = "Unauthorized"
-Forbidden = "Forbidden"
-NotFound = "Record does not exist"
-Conflict = "The request is conflicts"
-InternalServerError = "Internal Server Error"
