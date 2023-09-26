@@ -1,0 +1,66 @@
+syntax = "proto3";
+option go_package = ".;proto";
+import "common.proto";
+
+message CreateSysMenuReq {
+    string menuName = 1; // menu名称
+    string desc = 2; // 描述
+    string route = 3; // 菜单路由
+    uint32 state = 4; // 1显示,2否
+    uint64 pid = 5; // 父id
+    string pname = 6; // 父路由名称
+    int32 sortOrder = 7; // 排序
+    int32 backendType = 8; // 1总后台，2运营后台
+
+}
+
+message CreateSysMenuRsp {
+    string ulid = 1;
+}
+
+message DeleteSysMenuReq {
+    string ulid = 1;
+}
+
+message UpdateSysMenuReq {
+    string ulid = 1; // ID
+    string menuName = 2; // menu名称
+    string desc = 3; // 描述
+    string route = 4; // 菜单路由
+    uint32 state = 5; // 1显示,2否
+    uint64 pid = 6; // 父id
+    string pname = 7; // 父路由名称
+    int32 sortOrder = 8; // 排序
+    int32 backendType = 9; // 1总后台，2运营后台
+
+}
+
+message FindSysMenuByIdReq {
+    string ulid = 1;
+}
+
+message FindSysMenuRsp {
+    string ulid = 1; // ID
+    string createdBy = 4; // 创建者
+    string deletedBy = 5; // 删除者
+    string menuName = 6; // menu名称
+    string desc = 7; // 描述
+    string route = 8; // 菜单路由
+    uint32 state = 9; // 1显示,2否
+    uint64 pid = 10; // 父id
+    string pname = 11; // 父路由名称
+    int32 sortOrder = 12; // 排序
+    int32 backendType = 13; // 1总后台，2运营后台
+
+}
+
+message FindSysMenuPageReq{
+    repeated Query query = 1;
+    PageData page_data = 2;
+    SortData sort_data = 3;
+}
+
+message FindSysMenuPageRsp {
+    repeated  FindSysMenuRsp entries = 1;
+    PageData page_data = 2;
+}

@@ -1,0 +1,17 @@
+.buildpath
+.hgignore.swp
+.project
+.orig
+.swp
+.idea/
+.settings/
+.vscode/
+
+**/*.md
+**/*.txt
+**/build
+
+doc/
+test/
+
+**/*.tgz

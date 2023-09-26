@@ -1,0 +1,14 @@
+syntax = "proto3";
+import "common.proto";
+import "sys_menu.proto";
+
+option go_package = ".;proto";
+
+service Goods {
+    // sys_menu
+    rpc CreateSysMenu (CreateSysMenuReq) returns (CreateSysMenuRsp); // 创建
+    rpc DeleteSysMenu (DeleteSysMenuReq) returns (Empty); // 删除
+    rpc UpdateSysMenu (UpdateSysMenuReq) returns (Empty); // 修改
+    rpc FindSysMenuById (FindSysMenuByIdReq) returns (FindSysMenuRsp); // 根据id查找
+    rpc FindSysMenuPage (FindSysMenuPageReq) returns (FindSysMenuPageRsp); // 分页
+}
