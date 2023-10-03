@@ -4,7 +4,7 @@ MAINTAINER jettjia <jettjia@qq.com>
 
 # Pull private repo go-lib
 RUN apk add --no-cache git
-RUN echo "machine github.com login jettjia password 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" >>  ~/.netrc
+RUN echo "machine github.com login jettjia password your_pwd" >>  ~/.netrc
 
 ENV GO111MODULE=on \
     CGO_ENABLED=0 \
