@@ -46,9 +46,9 @@ func (r *SysLog) Update(ctx context.Context, sysLogEn *entity.SysLog) (err error
 	return r.data.DB(ctx).Model(&po.SysLog{}).Where("ulid = ? ", sysLogEn.Ulid).Updates(sysLogPo).Error
 }
 
-func (r *SysLog) FindById(ctx context.Context, ulid string) (sysLogEn *entity.SysLog, err error) {
+func (r *SysLog) FindById(ctx context.Context, ulid string, selectColumn ...string) (sysLogEn *entity.SysLog, err error) {
 	var sysLogPo po.SysLog
-	err = r.data.DB(ctx).Limit(1).Find(&sysLogPo, "ulid = ? ", ulid).Error
+	err = r.data.DB(ctx).Limit(1).Select(selectColumn).Find(&sysLogPo, "ulid = ? ", ulid).Error
 	if err != nil {
 		return sysLogEn, err
 	}
@@ -57,10 +57,10 @@ func (r *SysLog) FindById(ctx context.Context, ulid string) (sysLogEn *entity.Sy
 	return
 }
 
-func (r *SysLog) FindByQuery(ctx context.Context, queries []*types.Query) (sysLogEn *entity.SysLog, err error) {
+func (r *SysLog) FindByQuery(ctx context.Context, queries []*types.Query, selectColumn ...string) (sysLogEn *entity.SysLog, err error) {
 	var sysLogPo po.SysLog
 	condition := types.GenerateQueryCondition(queries)
-	err = r.data.DB(ctx).Where(condition).Find(1).First(&sysLogPo).Error
+	err = r.data.DB(ctx).Where(condition).Select(selectColumn).Limit(1).First(&sysLogPo).Error
 	if err != nil {
 		return sysLogEn, err
 	}
@@ -69,11 +69,11 @@ func (r *SysLog) FindByQuery(ctx context.Context, queries []*types.Query) (sysLo
 	return
 }
 
-func (r *SysLog) FindAll(ctx context.Context, queries []*types.Query) (entries []*entity.SysLog, err error) {
+func (r *SysLog) FindAll(ctx context.Context, queries []*types.Query, selectColumn ...string) (entries []*entity.SysLog, err error) {
 	sysLogPos := make([]*po.SysLog, 0)
 	condition := types.GenerateQueryCondition(queries)
 
-	err = r.data.DB(ctx).Find(&sysLogPos, condition).Error
+	err = r.data.DB(ctx).Select(selectColumn).Find(&sysLogPos, condition).Error
 	if err != nil {
 		return entries, err
 	}
@@ -82,7 +82,7 @@ func (r *SysLog) FindAll(ctx context.Context, queries []*types.Query) (entries [
 	return
 }
 
-func (r *SysLog) FindPage(ctx context.Context, queries []*types.Query, reqPage *types.PageData, reqSort *types.SortData) ([]*entity.SysLog, *types.PageData, error) {
+func (r *SysLog) FindPage(ctx context.Context, queries []*types.Query, reqPage *types.PageData, reqSort *types.SortData, selectColumn ...string) ([]*entity.SysLog, *types.PageData, error) {
 	var condition string
 	var total int64
 	sysLogPos := make([]*po.SysLog, 0)
@@ -98,10 +98,13 @@ func (r *SysLog) FindPage(ctx context.Context, queries []*types.Query, reqPage *
 		return entries, &rspPag, err
 	}
 
+	if reqSort.Sort != "" {
+		dbQuery = dbQuery.Order(reqSort.Sort + " " + reqSort.Direction)
+	}
+
 	if total != 0 {
 		err = dbQuery.
-			Select("sys_log.*").
-			Order(reqSort.Sort + " " + reqSort.Direction).
+			Select(selectColumn).
 			Scopes(types.Paginate(reqPage.PageNum, reqPage.PageSize)).
 			Find(&sysLogPos).Error
 		if err != nil {

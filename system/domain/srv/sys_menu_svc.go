@@ -60,7 +60,7 @@ func (a *SysMenu) FindSysMenuAll(ctx context.Context, queries []*types.Query) (e
 }
 
 func (a *SysMenu) FindSysMenuPage(ctx context.Context, queries []*types.Query, reqPage *types.PageData, reqSort *types.SortData) (entries []*entity.SysMenu, pageData *types.PageData, err error) {
-	return a.sysMenuRepo.FindPage(ctx, queries, reqPage, reqSort)
+	return a.sysMenuRepo.FindPage(ctx, queries, reqPage, reqSort, "ulid")
 }
 
 func (a *SysMenu) ExecSql(ctx context.Context, sql string) error {

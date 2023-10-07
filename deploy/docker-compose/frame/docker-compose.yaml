@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  mysql:
+    restart: always
+    image: mysql:8.0
+    container_name: rds-mysql-test
+    volumes:
+      - /data/docker/mysql/data:/var/lib/mysql
+      - ./conf/my.cnf:/etc/my.cnf
+      - /data/docker/mysql/logs:/logs
+      - ./init:/docker-entrypoint-initdb.d/
+    environment:
+      MYSQL_ROOT_PASSWORD: "admin123"
+      MYSQL_USER: "admin"
+      MYSQL_PASSWORD: "admin123"
+      MYSQL_INITDB_SKIP_TZINFO: "Asia/Shanghai"
+    ports:
+      - '3306:3306'
+
+  redis-alone:
+    restart: always
+    container_name: rds-redis-alone-test
+    image: redis:6.0.10
+    volumes:
+      - /data/docker/redis-alone/data:/data
+    command: /bin/sh -c "redis-server --requirepass $$REDIS_HOST_PASSWORD"
+    env_file:
+      - redis.env
+    ports:
+      - "6379:6379"

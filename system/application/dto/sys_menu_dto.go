@@ -75,18 +75,18 @@ type (
 
 	// FindSysMenuRsp 查询SysMenu 返回对象
 	FindSysMenuRsp struct {
-		Ulid        string `json:"ulid"`         // ID
-		CreatedAt   int64  `json:"created_at"`   // 创建时间
-		UpdatedAt   int64  `json:"updated_at"`   // 修改时间
-		CreatedBy   string `json:"created_by"`   // 创建者
-		UpdatedBy   string `json:"updated_by"`   // 修改者
-		MenuName    string `json:"menu_name"`    // menu名称
-		Desc        string `json:"desc"`         // 描述
-		Route       string `json:"route"`        // 菜单路由
-		State       uint   `json:"state"`        // 1显示,2否
-		Pid         string `json:"pid"`          // 父id
-		Pname       string `json:"pname"`        // 父路由名称
-		SortOrder   int    `json:"sort_order"`   // 排序
-		BackendType int    `json:"backend_type"` // 1总后台，2运营后台
+		Ulid        string `json:"ulid,omitempty"`         // ID
+		CreatedAt   int64  `json:"created_at,omitempty"`   // 创建时间
+		UpdatedAt   int64  `json:"updated_at,omitempty"`   // 修改时间
+		CreatedBy   string `json:"created_by,omitempty"`   // 创建者
+		UpdatedBy   string `json:"updated_by,omitempty"`   // 修改者
+		MenuName    string `json:"menu_name,omitempty"`    // menu名称
+		Desc        string `json:"desc,omitempty"`         // 描述
+		Route       string `json:"route,omitempty"`        // 菜单路由
+		State       uint   `json:"state,omitempty"`        // 1显示,2否
+		Pid         string `json:"pid,omitempty"`          // 父id
+		Pname       string `json:"pname,omitempty"`        // 父路由名称
+		SortOrder   int    `json:"sort_order,omitempty"`   // 排序
+		BackendType int    `json:"backend_type,omitempty"` // 1总后台，2运营后台
 	}
 )

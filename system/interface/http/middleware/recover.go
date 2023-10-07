@@ -2,11 +2,10 @@ package middleware
 
 import (
 	"fmt"
-	"github.com/pkg/errors"
-
 	"github.com/gin-gonic/gin"
 	"github.com/go-sql-driver/mysql"
 	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 
 	"jettjia/go-ddd-demo-multi-common/pkg/log"
@@ -40,9 +39,10 @@ func CatchError() gin.HandlerFunc {
 						return
 					}
 
-					// 统一处理 gorm NotFound
-					if errAny.(error).Error() == "record not found" {
-						response.RspErr(c, gerror.NewCode(response.CommNotFound, mysqlErr.Message))
+					// string错误
+					if errAny != "" {
+						errorInfo := response.Panic(errAny)
+						response.RspErr(c, gerror.NewCode(response.CommInternalServer, fmt.Sprintf("errMsg:%+v; errStack:%+v", errAny, errorInfo.Internal))) // 前端返回
 						c.Abort()
 						return
 					}
@@ -59,6 +59,12 @@ func CatchError() gin.HandlerFunc {
 			// 手动抛出的错误,比如 errors.New()
 			if len(c.Errors) != 0 {
 				for _, errAny := range c.Errors {
+					// 统一处理 gorm NotFound
+					if errAny.Error() == "Record does not exist" {
+						response.RspErr(c, gerror.NewCode(response.CommNotFound, errAny.Error()))
+						return
+					}
+
 					// 统一处理 其他错误
 					errorInfo := response.Panic(errAny)
 					response.RspErr(c, gerror.NewCode(response.CommInternalServer, fmt.Sprintf("errMsg:%+v; errStack:%+v", errAny, errorInfo.Internal))) // 前端返回

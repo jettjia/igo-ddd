@@ -47,9 +47,9 @@ func (r *SysMenu) Update(ctx context.Context, sysMenuEn *entity.SysMenu) (err er
 	return r.data.DB(ctx).Model(&po.SysMenu{}).Where("ulid = ? ", sysMenuEn.Ulid).Updates(sysMenuPo).Error
 }
 
-func (r *SysMenu) FindById(ctx context.Context, ulid string) (sysMenuEn *entity.SysMenu, err error) {
+func (r *SysMenu) FindById(ctx context.Context, ulid string, selectColumn ...string) (sysMenuEn *entity.SysMenu, err error) {
 	var sysMenuPo po.SysMenu
-	err = r.data.DB(ctx).Limit(1).Find(&sysMenuPo, "ulid = ? ", ulid).Error
+	err = r.data.DB(ctx).Select(selectColumn).Limit(1).Find(&sysMenuPo, "ulid = ? ", ulid).Error
 	if err != nil {
 		return sysMenuEn, err
 	}
@@ -58,10 +58,10 @@ func (r *SysMenu) FindById(ctx context.Context, ulid string) (sysMenuEn *entity.
 	return
 }
 
-func (r *SysMenu) FindByQuery(ctx context.Context, queries []*types.Query) (sysMenuEn *entity.SysMenu, err error) {
+func (r *SysMenu) FindByQuery(ctx context.Context, queries []*types.Query, selectColumn ...string) (sysMenuEn *entity.SysMenu, err error) {
 	var sysMenuPo po.SysMenu
 	condition := types.GenerateQueryCondition(queries)
-	err = r.data.DB(ctx).Where(condition).Limit(1).Find(&sysMenuPo).Error
+	err = r.data.DB(ctx).Select(selectColumn).Where(condition).Limit(1).Find(&sysMenuPo).Error
 	if err != nil {
 		return sysMenuEn, err
 	}
@@ -70,11 +70,11 @@ func (r *SysMenu) FindByQuery(ctx context.Context, queries []*types.Query) (sysM
 	return
 }
 
-func (r *SysMenu) FindAll(ctx context.Context, queries []*types.Query) (entries []*entity.SysMenu, err error) {
+func (r *SysMenu) FindAll(ctx context.Context, queries []*types.Query, selectColumn ...string) (entries []*entity.SysMenu, err error) {
 	sysMenuPos := make([]*po.SysMenu, 0)
 	condition := types.GenerateQueryCondition(queries)
 
-	err = r.data.DB(ctx).Find(&sysMenuPos, condition).Error
+	err = r.data.DB(ctx).Order("ulid desc").Select(selectColumn).Find(&sysMenuPos, condition).Error
 	if err != nil {
 		return entries, err
 	}
@@ -83,7 +83,7 @@ func (r *SysMenu) FindAll(ctx context.Context, queries []*types.Query) (entries 
 	return
 }
 
-func (r *SysMenu) FindPage(ctx context.Context, queries []*types.Query, reqPage *types.PageData, reqSort *types.SortData) ([]*entity.SysMenu, *types.PageData, error) {
+func (r *SysMenu) FindPage(ctx context.Context, queries []*types.Query, reqPage *types.PageData, reqSort *types.SortData, selectColumn ...string) ([]*entity.SysMenu, *types.PageData, error) {
 	var condition string
 	var total int64
 	sysMenuPos := make([]*po.SysMenu, 0)
@@ -99,10 +99,13 @@ func (r *SysMenu) FindPage(ctx context.Context, queries []*types.Query, reqPage 
 		return entries, &rspPag, err
 	}
 
+	if reqSort.Sort != "" {
+		dbQuery = dbQuery.Order(reqSort.Sort + " " + reqSort.Direction)
+	}
+
 	if total != 0 {
 		err = dbQuery.
-			Select("sys_menu.*").
-			Order(reqSort.Sort + " " + reqSort.Direction).
+			Select(selectColumn).
 			Scopes(types.Paginate(reqPage.PageNum, reqPage.PageSize)).
 			Find(&sysMenuPos).Error
 
