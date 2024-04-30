@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"net/http"
-	"sync"
 
 	"github.com/gin-gonic/gin"
 
@@ -13,23 +12,15 @@ import (
 	"jettjia/go-ddd-demo-multi-system/interface/http/router"
 )
 
-var wg sync.WaitGroup
-
 func InitHttp(server *cmd.Server) {
-	wg.Add(2)
 	// open api
 	go func() {
-		defer wg.Done()
 		runHttp(server, "public", true)
 	}()
 
-	// private api
 	go func() {
-		defer wg.Done()
 		runHttp(server, "private", false)
 	}()
-
-	wg.Wait()
 }
 
 func runHttp(server *cmd.Server, portType string, jwtEnable bool) {

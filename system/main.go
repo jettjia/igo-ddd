@@ -4,7 +4,6 @@ import (
 	"flag"
 	"os"
 	"os/signal"
-	"sync"
 	"syscall"
 
 	"jettjia/go-ddd-demo-multi-system/cmd"
@@ -13,8 +12,6 @@ import (
 	"jettjia/go-ddd-demo-multi-system/interface/http"
 	"jettjia/go-ddd-demo-multi-system/interface/job"
 )
-
-var wg sync.WaitGroup
 
 func main() {
 	// 系统环境变量
@@ -29,26 +26,17 @@ func main() {
 		panic(err)
 	}
 
-	wg.Add(2)
 	// start http
-	go func() {
-		defer wg.Done()
-		http.InitHttp(server)
-	}()
+	http.InitHttp(server)
 
 	// start grpc
-	go func() {
-		defer wg.Done()
-		grpc.InitGrpc(server)
-	}()
+	grpc.InitGrpc(server)
 
 	// start event mq
 	event.InitEvent()
 
 	// start InitJob
 	job.InitJob()
-
-	wg.Wait()
 
 	quit := make(chan os.Signal)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
