@@ -1,4 +1,4 @@
-# aitext-go-ddd-multi
+# go-ddd-multi
 
 ## 介绍
 
