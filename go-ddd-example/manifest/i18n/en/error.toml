@@ -1,0 +1,15 @@
+BadRequestErr="Bad request. You can try again later."
+UnauthorizedErr="Unauthorized. Please check your username or password and try again."
+ForbiddenErr="You are not allowed to access this resource."
+NotFoundErr="This resource doesn't exist. You can try again later or contact Admin."
+ConflictErr="Conflict detected in the server. You can try again later."
+InternalServerErr="An internal error or wrong configuration has been detected."
+
+UserNotFoundErr= "user does not exist"
+UserNameConflictErr="user name conflict"
+UserPwdOrNicknameErr="user password or nickname error"
+
+MenuNotFoundErr= "menu does not exist"
+MenuNameConflictErr="menu name conflict"
+
+TooManyRequestsErr="too many request"

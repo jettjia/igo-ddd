@@ -1,0 +1,15 @@
+BadRequestErr="請求錯誤，請稍後重試。"
+UnauthorizedErr="授权错误，请检查您的用户名或密码后重新登录。"
+ForbiddenErr="您没有权限访问当前资源。"
+NotFoundErr="当前资源已不存在，请稍后重试或联系管理员。"
+ConflictErr="当前服务器请求冲突，您可以稍后重试。"
+InternalServerErr="当前服务器存在内部错误或错误配置。"
+
+UserNotFoundErr= "用户不存在"
+UserNameConflictErr="用户名称冲突"
+UserPwdOrNicknameErr="密码或昵称错误"
+
+MenuNotFoundErr= "菜单不存在"
+MenuNameConflictErr="菜单名称冲突"
+
+TooManyRequestsErr="请求次数太多"

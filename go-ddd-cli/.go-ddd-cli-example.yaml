@@ -1,0 +1,28 @@
+server:
+  server_name: "log" # 服务名称，也就是包路径名称
+  go_module: "xdata/xtext/zsvc-example" # go.mod 名称
+  code_path: "./tmp" # 生成代码目录
+mysql:
+  db_type: "postgres"
+  addr: "10.4.7.88"
+  user: "root"
+  pwd: "admin123"
+  port: "3306"
+  db: "xtext"
+  table: "sys_log"
+  key: "ulid" # 表的主键id
+
+doc:
+  api_module: "pc" # api模块大模块 ,对应路下面路由中的 pc
+  api_version: "v1" # api版本 ,对应路下面路由中的 v1
+  api_module_son: "sys" # api 子模块  ,对应路下面路由中的 sys
+  api_table_short_name: "index" # 表的缩短名称, 对应路下面路由中的 user
+  api_table: "日志管理" # api 分组的tag, 接口的说明，比如 创建 后台订单中的 ：后台订单
+  api_tag: "日志" # api 分组的tag,  swagger中的tag
+
+  # 举例：/api/pc/v1/sys/role  [post]
+  # 举例：/api/pc/v1/sys/user/{id}   [get/delete/put]
+  # 举例：/api/pc/v1/sys/userPage   [post page]
+
+grpc:
+  grpc_server: "Goods" # grpc的service名称

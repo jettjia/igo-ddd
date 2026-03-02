@@ -1,0 +1,783 @@
+{
+  "components": {
+    "schemas": {
+      "CreateSysUserReq": {
+        "properties": {
+          "admin_level": {
+            "description": "1是admin超管",
+            "type": "string"
+          },
+          "exp": {
+            "$ref": "#/components/schemas/CreateSysUserReqExp"
+          },
+          "level_id": {
+            "description": "会员等级id",
+            "type": "string"
+          },
+          "member_code": {
+            "description": "会员号",
+            "type": "string"
+          },
+          "nick_name": {
+            "description": "昵称",
+            "type": "string"
+          },
+          "password": {
+            "description": "密码",
+            "type": "string"
+          },
+          "phone": {
+            "description": "手机号码",
+            "type": "string"
+          },
+          "true_name": {
+            "description": "真实姓名，可重复",
+            "type": "string"
+          }
+        },
+        "required": [
+          "member_code"
+        ],
+        "type": "object"
+      },
+      "CreateSysUserReqExp": {
+        "properties": {
+          "addr": {
+            "description": "住址",
+            "type": "string"
+          },
+          "addr_code": {
+            "description": "住址编号",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "CreateSysUserRsp": {
+        "properties": {
+          "ulid": {
+            "description": "ulid",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "CreateSysUserRspExp": {
+        "properties": {
+          "addr": {
+            "description": "住址",
+            "type": "string"
+          },
+          "addr_code": {
+            "description": "住址编号",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "CreateWebsiteReq": {
+        "properties": {
+          "cus_company": {
+            "description": "cus_company",
+            "type": "string"
+          },
+          "cus_job": {
+            "description": "岗位",
+            "type": "string"
+          },
+          "cus_name": {
+            "description": "客户名称",
+            "type": "string"
+          },
+          "cus_phone": {
+            "description": "手机号码",
+            "type": "string"
+          },
+          "email": {
+            "description": "邮箱",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "CreateWebsiteRsp": {
+        "properties": {
+          "ulid": {
+            "description": "ulid",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "DelSysUsersReq": {
+        "properties": {
+          "ulid": {
+            "description": "ulid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ulid"
+        ],
+        "type": "object"
+      },
+      "DelWebsitesReq": {
+        "properties": {
+          "ulid": {
+            "description": "ulid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ulid"
+        ],
+        "type": "object"
+      },
+      "FindSysUserAllReq": {
+        "properties": {
+          "query": {
+            "items": {
+              "$ref": "#/components/schemas/Query"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "FindSysUserByIdReq": {
+        "properties": {
+          "ulid": {
+            "description": "ulid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ulid"
+        ],
+        "type": "object"
+      },
+      "FindSysUserByQueryReq": {
+        "properties": {
+          "query": {
+            "items": {
+              "$ref": "#/components/schemas/Query"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "FindSysUserPageReq": {
+        "properties": {
+          "page_data": {
+            "$ref": "#/components/schemas/PageData"
+          },
+          "query": {
+            "items": {
+              "$ref": "#/components/schemas/Query"
+            },
+            "type": "array"
+          },
+          "sort_data": {
+            "$ref": "#/components/schemas/SortData"
+          }
+        },
+        "type": "object"
+      },
+      "FindSysUserPageRsp": {
+        "properties": {
+          "entries": {
+            "items": {
+              "$ref": "#/components/schemas/FindSysUserRsp"
+            },
+            "type": "array"
+          },
+          "page_data": {
+            "$ref": "#/components/schemas/PageData"
+          }
+        },
+        "type": "object"
+      },
+      "FindSysUserRsp": {
+        "properties": {
+          "created_at": {
+            "description": "创建时间",
+            "type": "integer"
+          },
+          "exp": {
+            "$ref": "#/components/schemas/CreateSysUserRspExp"
+          },
+          "level_id": {
+            "description": "会员等级id",
+            "type": "string"
+          },
+          "member_code": {
+            "description": "会员号",
+            "type": "string"
+          },
+          "nick_name": {
+            "description": "昵称",
+            "type": "string"
+          },
+          "phone": {
+            "description": "手机号码",
+            "type": "string"
+          },
+          "ulid": {
+            "description": "ulid",
+            "type": "string"
+          },
+          "unionid": {
+            "description": "微信unionid",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "修改时间",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "FindWebsiteAllReq": {
+        "properties": {
+          "query": {
+            "items": {
+              "$ref": "#/components/schemas/Query"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "FindWebsiteByIdReq": {
+        "properties": {
+          "ulid": {
+            "description": "ulid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ulid"
+        ],
+        "type": "object"
+      },
+      "FindWebsiteByQueryReq": {
+        "properties": {
+          "query": {
+            "items": {
+              "$ref": "#/components/schemas/Query"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "FindWebsitePageReq": {
+        "properties": {
+          "page_data": {
+            "$ref": "#/components/schemas/PageData"
+          },
+          "query": {
+            "items": {
+              "$ref": "#/components/schemas/Query"
+            },
+            "type": "array"
+          },
+          "sort_data": {
+            "$ref": "#/components/schemas/SortData"
+          }
+        },
+        "type": "object"
+      },
+      "FindWebsitePageRsp": {
+        "properties": {
+          "entries": {
+            "items": {
+              "$ref": "#/components/schemas/FindWebsiteRsp"
+            },
+            "type": "array"
+          },
+          "page_data": {
+            "$ref": "#/components/schemas/PageData"
+          }
+        },
+        "type": "object"
+      },
+      "FindWebsiteRsp": {
+        "properties": {
+          "created_at": {
+            "description": "创建时间",
+            "type": "integer"
+          },
+          "cus_company": {
+            "description": "cus_company",
+            "type": "string"
+          },
+          "cus_job": {
+            "description": "岗位",
+            "type": "string"
+          },
+          "cus_name": {
+            "description": "客户名称",
+            "type": "string"
+          },
+          "cus_phone": {
+            "description": "手机号码",
+            "type": "string"
+          },
+          "email": {
+            "description": "邮箱",
+            "type": "string"
+          },
+          "ulid": {
+            "description": "ulid",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "修改时间",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "LoginReq": {
+        "properties": {
+          "login_ip": {
+            "description": "登录Ip",
+            "type": "string"
+          },
+          "name": {
+            "description": "昵称",
+            "type": "string"
+          },
+          "password": {
+            "description": "密码",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "password"
+        ],
+        "type": "object"
+      },
+      "LoginRsp": {
+        "properties": {
+          "access_token": {
+            "type": "string"
+          },
+          "expires_in": {
+            "type": "integer"
+          },
+          "refresh_token": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "token_type": {
+            "type": "string"
+          },
+          "user_exp": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "LogoutReq": {
+        "properties": {
+          "token": {
+            "description": "登录的token",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "PageData": {
+        "properties": {
+          "page_num": {
+            "description": "page number",
+            "type": "integer"
+          },
+          "page_size": {
+            "description": "the number of rows displayed per page",
+            "type": "integer"
+          },
+          "total_number": {
+            "description": "how many in total",
+            "type": "integer"
+          },
+          "total_page": {
+            "description": "how many pages in total",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "Query": {
+        "properties": {
+          "key": {
+            "description": "the key to search for a keyword",
+            "type": "string"
+          },
+          "operator": {
+            "description": "judging conditions",
+            "type": "integer"
+          },
+          "value": {
+            "description": "search for the value of the keyword",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SortData": {
+        "properties": {
+          "direction": {
+            "description": "asc;desc",
+            "type": "string"
+          },
+          "sort": {
+            "description": "sort fields",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "UpdateSysUserReq": {
+        "properties": {
+          "level_id": {
+            "description": "会员等级id",
+            "type": "string"
+          },
+          "member_code": {
+            "description": "会员号",
+            "type": "string"
+          },
+          "nick_name": {
+            "description": "昵称",
+            "type": "string"
+          },
+          "phone": {
+            "description": "手机号码",
+            "type": "string"
+          },
+          "ulid": {
+            "description": "ulid",
+            "type": "string"
+          },
+          "unionid": {
+            "description": "微信unionid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ulid"
+        ],
+        "type": "object"
+      },
+      "UpdateWebsiteReq": {
+        "properties": {
+          "cus_company": {
+            "description": "cus_company",
+            "type": "string"
+          },
+          "cus_job": {
+            "description": "岗位",
+            "type": "string"
+          },
+          "cus_name": {
+            "description": "客户名称",
+            "type": "string"
+          },
+          "cus_phone": {
+            "description": "手机号码",
+            "type": "string"
+          },
+          "email": {
+            "description": "邮箱",
+            "type": "string"
+          },
+          "ulid": {
+            "description": "ulid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ulid"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "X-Data REST API documentation",
+    "title": "X-Data API",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/xtext/x-data/v1/user/user": {
+      "post": {
+        "description": "",
+        "operationId": "CreateSysUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSysUserReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateSysUserRsp"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "summary": "POST /api/xtext/x-data/v1/user/user",
+        "tags": [
+          "user"
+        ]
+      }
+    },
+    "/api/xtext/x-data/v1/user/user/:ulid": {
+      "delete": {
+        "description": "",
+        "operationId": "DeleteSysUser",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "summary": "DELETE /api/xtext/x-data/v1/user/user/:ulid",
+        "tags": [
+          "user"
+        ]
+      },
+      "get": {
+        "description": "",
+        "operationId": "FindSysUserById",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindSysUserRsp"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "summary": "GET /api/xtext/x-data/v1/user/user/:ulid",
+        "tags": [
+          "user"
+        ]
+      },
+      "put": {
+        "description": "",
+        "operationId": "UpdateSysUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSysUserReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "summary": "PUT /api/xtext/x-data/v1/user/user/:ulid",
+        "tags": [
+          "user"
+        ]
+      }
+    },
+    "/api/xtext/x-data/v1/user/user/byAll": {
+      "post": {
+        "description": "",
+        "operationId": "FindSysUserAll",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindSysUserAllReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/FindSysUserRsp"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "summary": "POST /api/xtext/x-data/v1/user/user/byAll",
+        "tags": [
+          "user"
+        ]
+      }
+    },
+    "/api/xtext/x-data/v1/user/user/byQuery": {
+      "post": {
+        "description": "",
+        "operationId": "FindSysUserByQuery",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindSysUserByQueryReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindSysUserRsp"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "summary": "POST /api/xtext/x-data/v1/user/user/byQuery",
+        "tags": [
+          "user"
+        ]
+      }
+    },
+    "/api/xtext/x-data/v1/user/userPage": {
+      "post": {
+        "description": "",
+        "operationId": "FindSysUserPage",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindSysUserPageReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindSysUserPageRsp"
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "summary": "POST /api/xtext/x-data/v1/user/userPage",
+        "tags": [
+          "user"
+        ]
+      }
+    },
+    "/api/xtext/x-data/v1/website/createWebsite": {
+      "post": {
+        "description": "",
+        "operationId": "CreateWebsite",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWebsiteReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "summary": "POST /api/xtext/x-data/v1/website/createWebsite",
+        "tags": [
+          "website"
+        ]
+      }
+    }
+  }
+}

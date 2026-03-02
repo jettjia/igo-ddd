@@ -1,6 +1,0 @@
-BadRequest = "參數不合法"
-Unauthorized = "授權無效"
-Forbidden = "禁止訪問"
-NotFound = "資源不存在"
-Conflict = "請求沖突"
-InternalServerError = "內部錯誤"

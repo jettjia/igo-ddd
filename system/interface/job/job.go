@@ -1,4 +1,0 @@
-package job
-
-func InitJob() {
-}

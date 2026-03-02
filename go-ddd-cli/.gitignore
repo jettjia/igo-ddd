@@ -1,0 +1,6 @@
+.idea/
+.vscode/
+main
+auto-code
+tmp
+.go-ddd-cli.yaml

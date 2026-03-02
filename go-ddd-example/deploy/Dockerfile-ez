@@ -1,0 +1,28 @@
+# 表示依赖 alpine 最新版
+FROM registry.cn-shanghai.aliyuncs.com/xdata-atom/golang:1.25-alpine AS builder
+
+# 设置工作目录
+WORKDIR /workspace
+
+# 拷贝可执行文件
+COPY deploy/bin/go-main /workspace/go-main
+RUN chmod +x ./go-main
+
+# 拷贝配置文件到构建阶段
+COPY manifest /workspace/manifest
+
+# 运行阶段
+FROM registry.cn-shanghai.aliyuncs.com/xdata-atom/busybox:latest
+
+# 拷贝配置文件到容器中
+COPY --from=builder /workspace/manifest /app/manifest
+
+# 复制构建产物。
+COPY --from=builder /workspace/go-main /app/go-main
+
+# 暴露端口
+EXPOSE 6666 6667 6668
+
+# 运行golang程序的命令
+WORKDIR /app
+ENTRYPOINT ["/app/go-main", "-env", "docker"]

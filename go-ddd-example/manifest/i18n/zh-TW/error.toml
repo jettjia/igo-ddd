@@ -1,0 +1,15 @@
+BadRequestErr="參數不合法"
+UnauthorizedErr="授權錯誤，請檢查您的使用者名稱或密碼后重新登入。"
+ForbiddenErr="您沒有權限存取當前資源。"
+NotFoundErr="當前資源已不存在，請稍後重試或聯絡管理員。"
+ConflictErr="當前伺服器請求衝突，您可以稍後重試。"
+InternalServerErr="當前伺服器存在內部錯誤或錯誤設定。"
+
+UserNotFoundErr= "用户不存在"
+UserNameConflictErr="用戶名沖突"
+UserPwdOrNicknameErr="用戶密碼或暱稱錯誤"
+
+MenuNotFoundErr= "用户不存在"
+MenuNameConflictErr="菜單名稱沖突"
+
+TooManyRequestsErr="请求次数太多"
