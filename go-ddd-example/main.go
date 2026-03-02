@@ -10,6 +10,7 @@ import (
 	"github.com/jettjia/ddddemo/api/grpc"
 	"github.com/jettjia/ddddemo/api/http"
 	"github.com/jettjia/ddddemo/api/job"
+	"github.com/jettjia/ddddemo/api/mcp"
 	"github.com/jettjia/ddddemo/boot"
 	"github.com/jettjia/ddddemo/infra/repository/po"
 )
@@ -42,6 +43,9 @@ func main() {
 
 	// start grpc
 	grpc.InitGrpc()
+
+	// start mcp
+	mcp.InitMCP()
 
 	// start event mq
 	event.InitEvent()
