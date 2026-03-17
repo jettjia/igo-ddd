@@ -57,6 +57,9 @@ func (a *SysMenuDto) D2EUpdateSysMenu(dto *dtoUser.UpdateSysMenuReq) *entityUser
 
 // E2DCreateSysMenu dto转换成entity
 func (a *SysMenuDto) E2DCreateSysMenu(en *entityUser.SysMenu) (dto *dtoUser.CreateSysMenuRsp) {
+	if en == nil {
+		return &dtoUser.CreateSysMenuRsp{}
+	}
 	dto.Ulid = en.Ulid
 
 	return

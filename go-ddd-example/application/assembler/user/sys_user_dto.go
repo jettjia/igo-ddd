@@ -64,9 +64,10 @@ func (a *SysUserDto) D2ELoginSysUser(dto *dtoUser.LoginReq) *entityUser.SysUser 
 
 // E2DCreateSysUser dto转换成entity
 func (a *SysUserDto) E2DCreateSysUser(en *entityUser.SysUser) (dto *dtoUser.CreateSysUserRsp) {
-	dto.Ulid = en.Ulid
-
-	return
+	if en == nil {
+		return &dtoUser.CreateSysUserRsp{}
+	}
+	return &dtoUser.CreateSysUserRsp{Ulid: en.Ulid}
 }
 
 // E2DFindSysUserRsp entity转换成dto

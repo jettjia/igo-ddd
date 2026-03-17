@@ -3,17 +3,19 @@ server:
   lang: zh-CN # "zh-CN", "zh-TW", "en"
   public_port: 6666 # 对外端口
   private_port: 6667 # 对内端口
+  mcp_public_port: 6668 # MCP服务端口
   server_name: "public-center"
   mode: "debug" # gin的模式配置 debug, test, release
   dev: true # true,false;校验token等,开发模式的时候打开
   enable_event: false
   enable_job: true
   enable_grpc: false
+  enable_mcp: false
 
 # GRPC Server.
 gserver:
   host: "0.0.0.0" # 当前服务
-  public_port: 6668 # 当前服务
+  public_port: 6669 # 当前服务
   max_msg_size: 1024 # 最大发送接收字节数,单位 m
   client_goods_host: "0.0.0.0" # goods服务的host
   client_goods_port: 18080 # goods服务的port

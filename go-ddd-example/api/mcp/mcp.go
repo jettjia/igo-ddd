@@ -98,7 +98,7 @@ func (m *MCPService) Start(ctx context.Context) error {
 
 	// 获取配置
 	cfg := config.NewConfig()
-	mcpPort := 7777
+	mcpPort := cfg.Server.McpPublicPort
 	if v, ok := cfg.Third.Extra["mcp_port"]; ok {
 		switch t := v.(type) {
 		case int:

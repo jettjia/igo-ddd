@@ -6,12 +6,20 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/jettjia/ddddemo/config"
 )
 
 var mcpservice *MCPService
 
 // InitMCP 初始化并启动MCP服务
 func InitMCP() {
+	conf := config.NewConfig()
+	if !conf.Server.EnableMcp {
+		log.Println("MCP service is disabled, skipping initialization")
+		return
+	}
+
 	// 创建MCP服务实例
 	mcpservice = NewMCPService()
 
