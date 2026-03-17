@@ -8,7 +8,7 @@ require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-sql-driver/mysql v1.7.1
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0
-	github.com/jettjia/igo-pkg v1.9.3
+	github.com/jettjia/igo-pkg v1.9.4
 	github.com/jinzhu/copier v0.4.0
 	github.com/mark3labs/mcp-go v0.44.1
 	github.com/pkg/errors v0.9.1
