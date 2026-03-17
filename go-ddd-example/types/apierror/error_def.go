@@ -48,6 +48,7 @@ func init() {
 
 	// 用户模块
 	i18nInfo[UserPwdOrNicknameErr] = "UserPwdOrNicknameErr"
+	i18nInfo[UserNameConflictErr] = "UserNameConflictErr"
 
 	// 菜单模块错误
 	i18nInfo[MenuNotFoundErr] = "MenuNotFoundErr"
