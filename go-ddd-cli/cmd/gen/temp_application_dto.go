@@ -4,7 +4,7 @@ const TempApplicationDto = `
 package user
 
 import (
-	"github.com/jettjia/go-pkg/pkg/xsql/builder"
+	"github.com/jettjia/igo-pkg/pkg/xsql/builder"
 )
 
 // 请求对象

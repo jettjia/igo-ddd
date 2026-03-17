@@ -6,7 +6,7 @@ package user
 import (
 	"context"
 
-	"github.com/jettjia/go-pkg/pkg/xsql/builder"
+	"github.com/jettjia/igo-pkg/pkg/xsql/builder"
 
 	entityUser "xdata/xtext/zsvc-example/domain/entity/user"
 	repoUser "xdata/xtext/zsvc-example/infra/repository/repo/user"
@@ -96,7 +96,7 @@ package user
 import (
 	"context"
 
-	"github.com/jettjia/go-pkg/pkg/xsql/builder"
+	"github.com/jettjia/igo-pkg/pkg/xsql/builder"
 
 	entityUser "xdata/xtext/zsvc-example/domain/entity/user"
 	repoUser "xdata/xtext/zsvc-example/infra/repository/repo/user"

@@ -8,7 +8,7 @@ mysql:
   user: "root"
   pwd: "admin123"
   port: "5432"
-  db: "xtext"
+  db: "ddddemo"
   table: "sys_log"
   key: "ulid" # 表的主键id
 

@@ -7,9 +7,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/jettjia/go-pkg/pkg/validate"
-	"github.com/jettjia/go-pkg/pkg/xerror"
-	"github.com/jettjia/go-pkg/pkg/xresponse"
+	"github.com/jettjia/igo-pkg/pkg/validate"
+	"github.com/jettjia/igo-pkg/pkg/xerror"
+	"github.com/jettjia/igo-pkg/pkg/xresponse"
 
 	dtoUser "xdata/xtext/zsvc-example/application/dto/user"
 	"xdata/xtext/zsvc-example/types/apierror"
