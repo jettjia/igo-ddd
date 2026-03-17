@@ -4,10 +4,10 @@ server:
   code_path: "./tmp" # 生成代码目录
 mysql:
   db_type: "postgres"
-  addr: "10.4.7.88"
+  addr: "127.0.0.1"
   user: "root"
   pwd: "admin123"
-  port: "3306"
+  port: "5432"
   db: "xtext"
   table: "sys_log"
   key: "ulid" # 表的主键id
