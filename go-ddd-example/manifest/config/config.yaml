@@ -31,6 +31,7 @@ log:
 
 # Database.
 db:
+  db_type: "postgres"
   username: "root"
   password: "admin123"
   db_host: "127.0.0.1"
